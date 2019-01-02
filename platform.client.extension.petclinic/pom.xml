@@ -10,7 +10,6 @@
 
 	<groupId>com.anthem.client.extension</groupId>
 	<artifactId>com.anthem.client.extension.petclinic</artifactId>
-	<version>1.2.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>platform.client.extension.petclinic</name>

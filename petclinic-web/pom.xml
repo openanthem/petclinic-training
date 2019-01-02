@@ -9,11 +9,11 @@
 	</parent>
   <properties>
   	<nimbus.version>2.0.0.BUILD-SNAPSHOT</nimbus.version>
+  	<petclinic.version>2.0.0.BUILD-SNAPSHOT</petclinic.version>
   </properties>
   <groupId>com.anthem.petclinic.web</groupId>
   <artifactId>petclinic-web</artifactId>
   <packaging>war</packaging>
-  <version>1.0.0-SNAPSHOT</version>
   <description>Petclinic Web Application</description>
   <dependencies>
   	<dependency>
