@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: petclinic
+  labels:
+    run: petclinic
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: petclinic
+    spec:
+      containers:
+      - name: petclinic
+        image: zsaliou/petclinic:latest
+        ports:
+        - containerPort: 8080
+          protocol: TCP
