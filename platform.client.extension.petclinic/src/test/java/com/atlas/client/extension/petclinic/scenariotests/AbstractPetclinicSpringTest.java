@@ -25,25 +25,25 @@ import com.atlas.client.extension.petclinic.pageobject.model.HomeUnitTestPage;
  *
  */
 public abstract class AbstractPetclinicSpringTest extends BaseSpringTest {
-	
+
 	public final static String CLIENT_ID = "petclinic";
 	public final static String CLIENT_ORG = "org";
-	
+
 	public static final class CollectionNames {
 		public static final String OWNER = "owner";
 		public static final String PET = "pet";
 		public static final String VISIT = "visit";
 		public static final String VET = "veterinarian";
 	}
-	
+
 	protected HomeUnitTestPage homepage;
-	
+
 	@Before
 	public void init() {
 		Long refId = 1L; // TODO Invoke from f/w call
 		this.homepage = new HomeUnitTestPage(beanResolver, CLIENT_ID, CLIENT_ORG, refId);
 	}
-	
+
 	@After
 	public void teardown() {
 		this.mongo.getDb().drop();
