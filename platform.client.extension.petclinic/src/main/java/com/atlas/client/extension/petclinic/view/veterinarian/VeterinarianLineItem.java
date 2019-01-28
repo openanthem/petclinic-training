@@ -36,6 +36,11 @@ public class VeterinarianLineItem {
 	@Path
 	private String numberOfPets;
 	
+	@Label("Phone Number")
+	@FieldValue
+	@Path
+	private String phoneNumber;
+	
 	@Label("Edit Vet")
     @Link
     @Config(url = "/p/veterinarianlandingview:<!/../id!>/_get?b=$execute")
