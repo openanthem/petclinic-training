@@ -80,10 +80,20 @@ public class VMAddNote {
 	@Model @Getter @Setter
 	public static class DefaultButtonGroup {
 		
+		@Label(value="Submit and Add New")
+		@Button(style = Button.Style.PRIMARY, type = Button.Type.submit)
+		@Config(url = "<!#this!>/../../../vfAddNote/_update")
+		@Config(url = "/p/notes/_new?fn=_initEntity&target=/noteDescription&json=\"<!/../noteDescription!>\"&target=/noteType&json=\"<!/../noteType!>\"")
+		@Config(url = "<!#this!>/../../../vfAddNote/_delete")
+		@Config(url = "/vpNotes/vtNotes/vmAddNote/vsAddNote/vfAddNote/noteType/_process?fn=_set&value=general")
+		@Config(url = "/vpNotes/vtNotes/vsNotes/notes/.m/_process?fn=_set&url=/p/notes/_search?fn=query")
+		private String submitAndAddNew;
+		
 		@Label(value="Submit")
 		@Button(style = Button.Style.PRIMARY, type = Button.Type.submit)
 		@Config(url = "<!#this!>/../../../vfAddNote/_update")
 		@Config(url = "/p/notes/_new?fn=_initEntity&target=/noteDescription&json=\"<!/../noteDescription!>\"&target=/noteType&json=\"<!/../noteType!>\"")
+		@Config(url = "/vpNotes/vtNotes/vsNotes/notes/.m/_process?fn=_set&url=/p/notes/_search?fn=query")
 		@Config(url = "<!#this!>/../../../../_process?fn=_setByRule&rule=togglemodal")
 		private String submit;
 		

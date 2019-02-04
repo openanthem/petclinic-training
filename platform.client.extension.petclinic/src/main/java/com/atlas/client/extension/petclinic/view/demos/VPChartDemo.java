@@ -134,7 +134,7 @@ public class VPChartDemo {
 		private List<DataGroup> barGraph;
 		
 		@Label("Line Graph")
-		@Chart(value=Type.LINE, xAxisLabel="Domain", yAxisLabel="Count")
+		@Chart(value=Type.LINE, xAxisLabel="Domain", yAxisLabel="Count", stepSize="30")
 		private List<DataGroup> lineGraph;
 		
 		@Label("Pie Graph")
