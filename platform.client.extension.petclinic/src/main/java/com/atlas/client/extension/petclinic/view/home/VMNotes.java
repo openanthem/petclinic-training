@@ -25,13 +25,13 @@ import com.antheminc.oss.nimbus.domain.defn.Model.Param.Values;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ButtonGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ComboBox;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Fonts;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Form;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.RichText;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
 import com.antheminc.oss.nimbus.domain.defn.extension.EnableConditional;
+import com.antheminc.oss.nimbus.domain.defn.extension.LabelConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.ParamContext;
 import com.antheminc.oss.nimbus.domain.defn.extension.VisibleConditional;
 import com.atlas.client.extension.petclinic.core.CodeValueTypes.NoteTypes;
@@ -48,8 +48,16 @@ import lombok.Setter;
 @Getter @Setter
 public class VMNotes {
 
-	@VisibleConditional(when = "state != 'readonly'", targetPath = "/../vsMain/vfAddNote")
+	@Config(url = "<!#this!>/../_process?fn=_setByRule&rule=togglemodal")
+	@Button(style = Button.Style.PLAIN, type = Button.Type.button)
+	private String closeModal;
+	
+	@VisibleConditional(when = "state == 'add'", targetPath = "/../vsMain/vfAddNote")
 	@VisibleConditional(when = "state == 'readonly'", targetPath = "/../vsMain/vfViewNote")
+	@LabelConditional(targetPath = "/../", condition = {
+		@LabelConditional.Condition(when = "state == 'add'", then = @Label("Add Note")),
+		@LabelConditional.Condition(when = "state == 'readonly'", then = @Label("View Note"))
+	})
 	private String mode;
 	
 	@Section
@@ -59,11 +67,11 @@ public class VMNotes {
 	@Getter @Setter
 	public static class VSMain{
 		
-		@Form
+		@Form(cssClass="oneColumn")
 		@Path(linked = false)
 		private VFAddNote vfAddNote;
 		
-		@Form
+		@Form(cssClass="oneColumn")
 		@Path(linked = false)
 		private VFViewNote vfViewNote;
 		
@@ -89,7 +97,6 @@ public class VMNotes {
 		@Label("Note Description")
 		@NotNull
 		@RichText(postEventOnChange = true)
-		@Fonts({ "Arial", "Serif", "Monospace" })
 		@Path
 		private String noteDescription;
 		
@@ -126,6 +133,7 @@ public class VMNotes {
 		@Config(url = "<!#this!>/../../../vfAddNote/_update") 
 		@Config(url = "/p/notes/_new?fn=_initEntity&target=/noteDescription&json=<!json(/../noteDescription)!>&target=/noteType&json=\"<!/../noteType!>\"")
 		@Config(url = "<!#this!>/../../../../_process?fn=_setByRule&rule=togglemodal")
+		@Config(url = "/vpNotes/vtNotes/vsNotes/notes/_get")
 		private String submit;
 		
 		@Label(value = "Back")

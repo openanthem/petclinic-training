@@ -55,6 +55,7 @@ public class NoteLineItem {
 		
 		@Label("View Note")
 		@Link
+		@Config(url = "/vpNotes/vtNotes/vmNotes/vsMain/vfAddNote/checker/_process?fn=_set&value=HIDE")
 		@Config(url = "/vpNotes/vtNotes/vmNotes/mode/_process?fn=_set&value=readonly")
 		@Config(url = "/vpNotes/vtNotes/vmNotes/vsMain/vfViewNote/noteType/_process?fn=_set&value=general")
 		@Config(url = "/vpNotes/vtNotes/vmNotes/vsMain/vfViewNote/_replace?rawPayload=<!json(/../../.m)!>")
@@ -63,7 +64,8 @@ public class NoteLineItem {
 		
 		@Label("Delete Note")
 		@Link
-		@Config(url = "<!#this!>/../../.m/_delete")
+		@Config(url = "/p/notes:<!/../../.m/id!>/_delete")
+		@Config(url = "/vpNotes/vtNotes/vsNotes/notes/_get")
 		private String delete;
 	}
 }

@@ -50,7 +50,7 @@ public class VPNotes {
     	@Paragraph(cssClass="font-weight-bold")
     	private String headerCallSection;
 		
-		@Modal
+		@Modal(closable = true, width = "large")
 		private VMNotes vmNotes;
 		
 		@Section
