@@ -3,8 +3,6 @@ package com.atlas.petclinic.web.security.utils;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.stereotype.Component;
-
 import com.antheminc.oss.nimbus.app.extension.config.DefaultClientUserDetails;
 
 import io.jsonwebtoken.Claims;
@@ -15,7 +13,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * @author Swetha Vemuri
  *
  */
-@Component
 public class JWTAuthTokenUtil implements Serializable {
 
 	/**

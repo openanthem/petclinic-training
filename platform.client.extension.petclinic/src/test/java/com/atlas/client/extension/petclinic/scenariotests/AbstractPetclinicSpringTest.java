@@ -45,7 +45,7 @@ public abstract class AbstractPetclinicSpringTest extends BaseSpringTest {
 	
 	@After
 	public void teardown() {
-		this.mongo.getDb().dropDatabase();
+		this.mongo.getDb().drop();
 		this.sessionProvider.clear();
 	}
 }

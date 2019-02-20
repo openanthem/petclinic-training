@@ -11,7 +11,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.atlas.petclinic.web.security.utils.JWTAuthTokenUtil;
 
 /**
  * @author AC63348
@@ -51,4 +53,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     	ClientUserDetailsServiceImpl clientUserDetailsService = new ClientUserDetailsServiceImpl();
 		return clientUserDetailsService;
 	}
+    
+    @Bean
+    public JWTAuthTokenUtil jwtAuthTokenUtil() {
+    	return new JWTAuthTokenUtil();
+    }
+    
+    @Bean
+    public JWTWebAuthenticationFilter jwtWebAuthenticationFilter() {
+    	return new JWTWebAuthenticationFilter(jwtAuthTokenUtil(), clientUserDetailsService());
+    }
 }
