@@ -59,12 +59,4 @@ public class VisitLandingPageTest extends AbstractPetclinicSpringTest {
 		assertThat(actual.get(0).getReasonForVisit()).isEqualTo(expected.getReasonForVisit());
 		assertThat(actual.get(0).getStatus()).isEqualTo(expected.getStatus());
 	}
-	
-	@Test
-	public void testClickOwners() {
-		OwnerLandingUnitTestPage ownerLandingPage = this.homepage.clickGoToOwners();
-		// Validate that after clicking goToOwners that the view param is generated.
-		Param<VROwnerLanding> ownerLandingViewParam = ParamUtils.extractResponseByParamPath(ownerLandingPage.getFromResponse(), "/ownerlandingview");
-		assertThat(ownerLandingViewParam).isNotNull();
-	}
 }

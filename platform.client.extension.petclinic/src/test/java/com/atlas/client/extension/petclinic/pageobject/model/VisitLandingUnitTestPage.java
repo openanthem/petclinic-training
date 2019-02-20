@@ -17,7 +17,6 @@ package com.atlas.client.extension.petclinic.pageobject.model;
 
 import java.util.List;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.antheminc.oss.nimbus.context.BeanResolverStrategy;
@@ -26,10 +25,10 @@ import com.antheminc.oss.nimbus.domain.model.state.EntityState.Param;
 import com.antheminc.oss.nimbus.test.domain.support.pageobject.UnitTestPage;
 import com.antheminc.oss.nimbus.test.domain.support.utils.MockHttpRequestBuilder;
 import com.antheminc.oss.nimbus.test.domain.support.utils.ParamUtils;
+import com.atlas.client.extension.petclinic.pageobject.model.shared.Header;
 import com.atlas.client.extension.petclinic.view.owner.VisitLineItem;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author Tony Lopez
@@ -38,53 +37,17 @@ import lombok.RequiredArgsConstructor;
 public class VisitLandingUnitTestPage extends UnitTestPage {
 
 	@Getter
-	private LeftNav leftNav = new LeftNav(this);
+	private final Header header;
 	
 	public VisitLandingUnitTestPage(BeanResolverStrategy beanResolver, String clientId, String clientApp, Long refId) {
 		super(beanResolver, clientId, clientApp, null, "visitlandingview", "vpVisits", refId);
+		this.header = new Header(clientId, clientApp, beanResolver, this.controller);
 		
 		MockHttpServletRequest request = MockHttpRequestBuilder.withUri(this.getViewRootDomainURI())
 				.addRefId(this.getRefId())
 				.addAction(Action._new)
 				.getMock();
 		this.controller.handlePost(request, null);
-	}
-
-	public OwnerLandingUnitTestPage clickGoToOwners() {
-		MockHttpServletRequest request = MockHttpRequestBuilder.withUri(this.getViewRootDomainURI())
-				.addRefId(this.getRefId())
-				.addNested("/vpVisits/vtMyVisits/vsMyVisits/goToOwners")
-				.addAction(Action._get)
-				.getMock();
-		
-		Object response = this.controller.handlePost(request, null);
-		return new OwnerLandingUnitTestPage(this.beanResolver, getClientId(), getClientApp(), response);
-	}
-	
-	@RequiredArgsConstructor
-	public static class LeftNav {
-	
-		private final VisitLandingUnitTestPage page;
-		
-		public OwnerLandingUnitTestPage clickOwners() {
-			return new OwnerLandingUnitTestPage(page.beanResolver, page.getClientId(), page.getClientApp(), null);
-		}
-		
-		public OwnerLandingUnitTestPage clickHome() {
-			throw new NotImplementedException("Tell the developers to stop slacking off!");
-		}
-		
-		public OwnerLandingUnitTestPage clickVeterinarians() {
-			throw new NotImplementedException("Tell the developers to stop slacking off!");
-		}
-		
-		public OwnerLandingUnitTestPage clickPets() {
-			throw new NotImplementedException("Tell the developers to stop slacking off!");
-		}
-		
-		public OwnerLandingUnitTestPage clickNotes() {
-			throw new NotImplementedException("Tell the developers to stop slacking off!");
-		}
 	}
 
 	public List<VisitLineItem> getVisits() {

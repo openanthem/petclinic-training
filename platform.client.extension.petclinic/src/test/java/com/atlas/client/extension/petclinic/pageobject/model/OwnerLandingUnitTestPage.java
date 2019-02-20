@@ -69,7 +69,7 @@ public class OwnerLandingUnitTestPage extends UnitTestPage {
 	@SuppressWarnings("unchecked")
 	public OwnerInfoUnitTestPage clickOwnerInfo(int index) {
 		MockHttpServletRequest request = MockHttpRequestBuilder.withUri(this.getViewRootDomainURI())
-				.addNested("/vpOwners/vtOwners/vsOwners/owners/" + index + "/ownerInfo")
+				.addNested("/vpOwners/vtOwners/vsOwners/owners/" + index + "/vlmCaseItemLinks/ownerInfo")
 				.addAction(Action._get)
 				.getMock();
 		

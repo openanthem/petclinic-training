@@ -81,7 +81,7 @@ public class OwnerInfoPageTests extends AbstractPetclinicSpringTest {
 		this.mongo.insert(owner1, CollectionNames.OWNER);
 		
 		// Build the owner info page to work with in the test cases.
-		this.ownerInfoPage = this.homepage.clickGoToOwners().clickOwnerInfo(0);
+		this.ownerInfoPage = this.homepage.getHeader().clickOwners().clickOwnerInfo(0);
 	}
 	
 	@Test

@@ -41,7 +41,7 @@ public class OwnerLandingPageTests extends AbstractPetclinicSpringTest {
 	@Before
 	public void init() {
 		super.init();
-		this.ownerLandingPage = this.homepage.clickGoToOwners();
+		this.ownerLandingPage = this.homepage.getHeader().clickOwners();
 	}
 	
 	@Test
