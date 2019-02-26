@@ -236,7 +236,11 @@ public class VPAddEditOwner {
 	
 		@Label("Submit")
 	    @Button(style = Button.Style.PRIMARY, type = Button.Type.submit)
-	    @Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionName/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionAddresss/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionNickname/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionNotificationPreference/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionContact/_update")
 	    @Config(url = "/p/ownerlandingview/_nav?pageId=vpOwners")
 	    private String submit;
 	
