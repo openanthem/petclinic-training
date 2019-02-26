@@ -43,7 +43,7 @@ public class VPVisitsBulkAction {
 		@Label("Visits - Bulk Action")
 		@MapsTo.Path(linked = false)       
 		@Grid(onLoad = true, pageSize = "3", rowSelection = true, postButton = true, postButtonTargetPath = "ids",
-			postButtonUri = "../actionCancelVisits", postButtonLabel="Cancel")
+			postButtonUrl = "../actionCancelVisits", postButtonLabel="Cancel")
 		@Config(url = "/vpVisitsBulkAction/vtVisits/vsVisits/visits.m/_process?fn=_set&url=/p/visit/_search?fn=example")
 		private List<VisitLineItem> visits;
 		
@@ -60,7 +60,7 @@ public class VPVisitsBulkAction {
 		@Label("Visits - Bulk Action - with header checkbox select All feature")
 		@MapsTo.Path(linked = false)       
 		@Grid(onLoad = true, pageSize = "3", rowSelection = true, postButton = true, postButtonTargetPath = "ids",
-			postButtonUri = "../actionCancelVisitsSelectAll", postButtonLabel="Cancel",headerCheckboxToggleAllPages=true)
+			postButtonUrl = "../actionCancelVisitsSelectAll", postButtonLabel="Cancel",headerCheckboxToggleAllPages=true)
 		@Config(url = "/vpVisitsBulkAction/vtVisits/vsVisits/visitsSelectAll.m/_process?fn=_set&url=/p/visit/_search?fn=example")
 		private List<VisitLineItem> visitsSelectAll;
 		

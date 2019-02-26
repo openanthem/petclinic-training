@@ -26,7 +26,6 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ButtonGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ComboBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Form;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.RichText;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
@@ -96,7 +95,7 @@ public class VMNotes {
 		
 		@Label("Note Description")
 		@NotNull
-		@RichText(postEventOnChange = true)
+		@TextBox(postEventOnChange = true)
 		@Path
 		private String noteDescription;
 		
@@ -117,7 +116,7 @@ public class VMNotes {
 		
 		@Label("Note Description")
 		@NotNull
-		@RichText(readOnly = true)
+		@TextBox(readOnly = true)
 		@Path
 		private String noteDescription;
 		
