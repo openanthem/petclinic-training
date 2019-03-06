@@ -13,9 +13,9 @@ spring:
     port: 6379
   data:
     mongodb:
-      host: mongo
-      database: petclinic
-      port: 27017
+      host: ${MONGO_DB_HOST:mongo}
+      database: ${MONGO_DB_DATABASE:petclinic}
+      port: ${MONGO_DB_PORT:27017}
   activiti:
     processDefinitionLocationPrefix:  classpath*:process-defs/**.xml
   mvc:
@@ -24,7 +24,7 @@ spring:
       suffix: .jsp
   sqldatasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-        
+
 #    datasource:
 #      url: jdbc:mysql://localhost/test
 #      driver-class-name: com.mysql.jdbc.Driver
