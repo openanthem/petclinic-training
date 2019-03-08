@@ -67,13 +67,13 @@ process:
      ([A-Za-z0-9_\\-\\*~\\?=\\.\\$]+)
   database:
     driver: 
-      embeddedH2
+      ${PROCESS_DATABASE_DRIVER:embeddedH2}
     url: 
-      embeddedH2
+      ${PROCESS_DATABASE_URL:embeddedH2}
     username: 
-      embeddedH2
+      ${PROCESS_DATABASE_USERNAME:embeddedH2}
     password: 
-      embeddedH2
+      ${PROCESS_DATABASE_PASSWORD:embeddedH2}
     taskUpdateQuery:
       update ACT_RU_TASK set TASK_DEF_KEY_ = ?, NAME_ = ? WHERE ID_=?
     executionUpdateQuery:
