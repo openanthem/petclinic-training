@@ -70,14 +70,15 @@ public class VROwnerLanding {
  
     	@Label("First Name")
     	@NotNull
-        @TextBox
+    	@Autocomplete(display="label")
+    	@Config(url = "/p/owner/_search?fn=lookup&where=owner.firstName.containsIgnoreCase('<!autocompletesearchvalue!>')&projection.mapsTo=code:id,label:firstName")
         @Path
         private String firstName;
-        
+           
         @Label("Last Name")
         @TextBox
         @Path
-        private String lastName;
+        private String lastName;       
         
         @ButtonGroup
         private VBGSearchOwner vbgSearchOwner;
