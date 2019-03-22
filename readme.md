@@ -6,7 +6,7 @@ Petclinic setup instructions
 * Build platform.extension.client.petclinic: mvn clean install (optionally add -DskipTests=true)
 * Build petclinic.web: mvn clean install (optionally add -DskipTests=true)
 
-## To start the spring boot applications
+## To start the spring boot application
 * Run petclinic-web as a spring boot application
 
 ---
