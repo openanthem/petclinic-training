@@ -3,28 +3,16 @@
  */
 package com.atlas.petclinic;
 
-import java.util.Enumeration;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-//import com.anthem.cm.ltss.extension.model.clientuser.core.LtssClientUser;
-//import com.anthem.cm.ltss.extension.web.ClientUserDetails;
-import com.antheminc.oss.nimbus.entity.client.access.ClientUserRole;
-import com.antheminc.oss.nimbus.entity.client.user.ClientUser;
 import com.antheminc.oss.nimbus.support.JustLogit;
 
 
@@ -41,7 +29,7 @@ public class LoginController {
         
     }
     
-    @RequestMapping(value = "/apperror", method = RequestMethod.GET)
+    @RequestMapping(value = "/app/error", method = RequestMethod.GET)
     public String error(@RequestParam Map<String,String> allParams, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	return "customerror";
     }
