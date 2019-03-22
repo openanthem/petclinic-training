@@ -13,6 +13,7 @@
   </properties>
   <groupId>com.anthem.petclinic.web</groupId>
   <artifactId>petclinic-web</artifactId>
+  <packaging>jar</packaging>
   <description>Petclinic Web Application</description>
   <dependencies>
   	<dependency>
