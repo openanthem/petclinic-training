@@ -35,4 +35,5 @@ public class MealInstruction extends IdLong {
 	private String name;
 	private String amount;
 	private String timeOfDay;
+	private String lengthOfTimeEaten;
 }

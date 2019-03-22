@@ -81,6 +81,11 @@ public class VMMealInstruction {
 		@Path
 		private String timeOfDay;
 		
+		@Label("How long has pet eaten this food (in months)?")
+ 		@TextBox
+ 		@Path
+ 		private String lengthOfTimeEaten;
+		
 		@ButtonGroup
 		private VBG vbg;
 	}

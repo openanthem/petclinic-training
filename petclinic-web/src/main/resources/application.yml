@@ -13,7 +13,7 @@ spring:
     port: 6379
   data:
     mongodb:
-      host: ${MONGO_DB_HOST:mongo}
+      host: ${MONGO_DB_HOST:localhost}
       database: ${MONGO_DB_DATABASE:petclinic}
       port: ${MONGO_DB_PORT:27017}
       username: ${MONGO_DB_USER}
@@ -53,9 +53,9 @@ logging:
   file: ${HOME}/Documents/nimbuslogs/${spring.application.name}.log
   level:
     reactor.io.net.impl.netty.tcp: DEBUG
-#  pattern:
-#    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } [%X{SESSIONID:- }] --- [%t] %-40.40logger{39} : %n${LOG_EXCEPTION_CONVERSION_WORD: %wEx}"  
-#    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } [%X{SESSIONID:- }] --- [%t] %-40.40logger{39} : %n${LOG_EXCEPTION_CONVERSION_WORD: %wEx}"
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } [%X{SESSIONID:- }] --- [%t] %-40.40logger{39} : %replace(%replace(%m){'\n', ''}){'\r', ''} %n${LOG_EXCEPTION_CONVERSION_WORD: %wEx}"  
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } [%X{SESSIONID:- }] --- [%t] %-40.40logger{39} : %replace(%replace(%m){'\n', ''}){'\r', ''} %n${LOG_EXCEPTION_CONVERSION_WORD: %wEx}"
   
 #logging.level.org.springframework=DEBUG
 
@@ -108,12 +108,12 @@ platform:
 server:
   port: 8080
   servlet:
+    session: 
+      timeout: 1800
     context-path: /petclinic
-#  context-path: /api
+    
 auth-server: http://localhost:8891
 security:
-  basic:
-    enabled: false
   oauth2:
     resource:
       tokenInfoUri: ${auth-server}/auth-service/oauth/check_token

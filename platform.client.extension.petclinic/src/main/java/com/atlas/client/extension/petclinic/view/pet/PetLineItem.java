@@ -51,14 +51,16 @@ public class PetLineItem {
     	
     	@Label("Edit Pet")
         @Link
-        @Config(url="/p/petview:<!/../id!>/_get")
-    	@Config(url="/p/petview:<!../id!>/_nav?pageId=vpAddEditPet")
+        @Config(url = "/p/petlayout:<!/../id!>/_get?b=$execute")
+        @Config(url = "/p/petview:<!/../id!>/_get")
+    	@Config(url = "/p/petview:<!../id!>/_nav?pageId=vpAddEditPet")
         private String editPet;
      
     	@Label("View Visits")
         @Link
-        @Config(url="/p/petview:<!/../id!>/_get")
-        @Config(url="/p/petview:<!../id!>/_nav?pageId=vpPetInfo")
+        @Config(url = "/p/petlayout:<!/../id!>/_get?b=$execute")
+        @Config(url = "/p/petview:<!/../id!>/_get")
+        @Config(url = "/p/petview:<!../id!>/_nav?pageId=vpPetInfo")
         private String viewVisits;
     	
     }

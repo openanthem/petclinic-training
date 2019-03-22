@@ -18,7 +18,7 @@ package com.atlas.client.extension.petclinic.scenariotests;
 import org.junit.After;
 import org.junit.Before;
 
-import com.atlas.client.extension.petclinic.pageobject.model.HomeUnitTestPage;
+import com.atlas.client.extension.petclinic.pageobject.model.VisitLandingUnitTestPage;
 
 /**
  * @author Tony Lopez
@@ -33,15 +33,14 @@ public abstract class AbstractPetclinicSpringTest extends BaseSpringTest {
 		public static final String OWNER = "owner";
 		public static final String PET = "pet";
 		public static final String VISIT = "visit";
-		public static final String VET = "veterinarian";
 	}
-
-	protected HomeUnitTestPage homepage;
-
+	
+	protected VisitLandingUnitTestPage homepage;
+	
 	@Before
 	public void init() {
 		Long refId = 1L; // TODO Invoke from f/w call
-		this.homepage = new HomeUnitTestPage(beanResolver, CLIENT_ID, CLIENT_ORG, refId);
+		this.homepage = new VisitLandingUnitTestPage(beanResolver, CLIENT_ID, CLIENT_ORG, refId);
 	}
 
 	@After

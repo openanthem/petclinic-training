@@ -27,7 +27,8 @@ import com.atlas.client.extension.petclinic.core.Owner;
 import com.atlas.client.extension.petclinic.pageobject.model.OwnerLandingUnitTestPage;
 import com.atlas.client.extension.petclinic.scenariotests.AbstractPetclinicSpringTest;
 import com.atlas.client.extension.petclinic.view.owner.OwnerLineItem;
-import com.atlas.client.extension.petclinic.view.owner.VPAddEditOwner.VFAddEditOwner;
+import com.atlas.client.extension.petclinic.view.owner.VPAddEditOwner.SectionName;
+
 
 /**
  * @author Tony Lopez
@@ -40,23 +41,36 @@ public class OwnerLandingPageTests extends AbstractPetclinicSpringTest {
 	@Before
 	public void init() {
 		super.init();
-		this.ownerLandingPage = this.homepage.clickGoToOwners();
+		this.ownerLandingPage = this.homepage.getHeader().clickOwners();
 	}
 	
 	@Test
 	public void testAddMultipleOwnersToGrid() {
-		VFAddEditOwner owner1 = this.getDummyOwner("Big", "Bird");
-		VFAddEditOwner owner2 = this.getDummyOwner("Cookie", "Monster");
+//		SectionName owner1 = this.getDummyOwner("Big", "Bird");
+//		SectionName owner2 = this.getDummyOwner("Cookie", "Monster");
+		
+		Owner owner1 = new Owner();
+		owner1.setId(1L);
+		owner1.setFirstName("Big");
+		owner1.setLastName("Bird");
+		
+		Owner owner2 = new Owner();
+		owner2.setId(2L);
+		owner2.setFirstName("Cookie");
+		owner2.setLastName("Monster");
+		
 		
 		// Add an owner and validate it was added in the grid.
-		this.ownerLandingPage.clickAddOwner().fillForm(owner1).clickSubmit();
+//		this.ownerLandingPage.clickAddOwner().fillForm(owner1).clickSubmit();
+		this.mongo.insert(owner1, CollectionNames.OWNER);
 		List<OwnerLineItem> owners = this.ownerLandingPage.getOwners();
 		Assert.assertEquals(1, owners.size());
 		Assert.assertEquals(owner1.getFirstName(), owners.get(0).getFirstName());
 		Assert.assertEquals(owner1.getLastName(), owners.get(0).getLastName());
 		
 		// Add a second owner and validate it was added in the grid.
-		this.ownerLandingPage.clickAddOwner().fillForm(owner2).clickSubmit();
+//		this.ownerLandingPage.clickAddOwner().fillForm(owner2).clickSubmit();
+		this.mongo.insert(owner2, CollectionNames.OWNER);
 		owners = this.ownerLandingPage.getOwners();
 		Assert.assertEquals(2, owners.size());
 		Assert.assertEquals(owner1.getFirstName(), owners.get(0).getFirstName());
@@ -89,8 +103,8 @@ public class OwnerLandingPageTests extends AbstractPetclinicSpringTest {
 		assertThat(actual.get(0).getTelephone()).isEqualTo(expected.getTelephone());
 	}
 	
-	private VFAddEditOwner getDummyOwner(String firstName, String lastName) {
-		VFAddEditOwner owner = new VFAddEditOwner();
+	private SectionName getDummyOwner(String firstName, String lastName) {
+		SectionName owner = new SectionName();
 		owner.setFirstName(firstName);
 		owner.setLastName(lastName);
 		return owner;

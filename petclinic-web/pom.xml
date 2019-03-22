@@ -9,11 +9,11 @@
 	</parent>
   <properties>
   	<nimbus.version>2.0.0.BUILD-SNAPSHOT</nimbus.version>
+  	<petclinic.version>2.0.0.BUILD-SNAPSHOT</petclinic.version>
   </properties>
   <groupId>com.anthem.petclinic.web</groupId>
   <artifactId>petclinic-web</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
   <description>Petclinic Web Application</description>
   <dependencies>
   	<dependency>
@@ -36,9 +36,9 @@
 		<scope>test</scope>
 	</dependency>
 	<dependency>
-		<groupId>com.anthem.client.extension</groupId>
-		<artifactId>com.anthem.client.extension.petclinic</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<groupId>com.antheminc.oss</groupId>
+		<artifactId>petclinic-extension</artifactId>
+		<version>${petclinic.version}</version>
 		<exclusions>
 			<exclusion>
 				 <groupId>de.flapdoodle.embed</groupId>

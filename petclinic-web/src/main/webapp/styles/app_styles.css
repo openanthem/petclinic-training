@@ -1,0 +1,50 @@
+.Active {
+	color:green;
+}
+.Inactive {
+	color:red;
+}
+.Text:before {
+    content: "\f10b";
+    font-family: FontAwesome;
+}
+.Email:before {
+    content: "\f1fa";
+    font-family: FontAwesome;
+}
+.Physical_mail:before {
+    content: "\f003";
+    font-family: FontAwesome;
+}
+.Text .fieldValue,
+.Email .fieldValue, 
+.Physical_mail .fieldValue {
+	opacity: 0;
+}
+.highlight-nickname {
+	text-decoration: underline;
+	font-weight: bold;
+	font-style: italic;
+}
+.inactiveUser {
+	text-decoration: line-through;
+}
+.nickname.preferred {
+	font-weight: bold;
+}
+.ui-treetable td.dropdown, 
+.ui-treetable td.imageColumn, 
+.ui-treetable th.dropdown, 
+.ui-treetable th.imageColumn, 
+.ui-treetable td.dropdown, 
+.ui-treetable td.imageColumn, 
+.ui-treetable th.dropdown, 
+.ui-treetable th.imageColumn {
+    width: 40px;
+}
+.toggleCard {
+	height:45px;
+}
+.ql-editor .ql-font-arial {
+    font-family: Arial;
+}

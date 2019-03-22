@@ -23,7 +23,7 @@ import lombok.Setter;
 @Model @Getter @Setter
 public class VSHomeHeader {
 	
-	@Link(url = "/#/h/petclinicdashboard/vpDashboard", imgSrc = "/images/anthem.png")
+	@Link(imgSrc = "/images/anthem.png")
 	@Hints(AlignOptions.Left)
 	@PageHeader(Property.LOGO)
 	@Label(value = "Anthem")
