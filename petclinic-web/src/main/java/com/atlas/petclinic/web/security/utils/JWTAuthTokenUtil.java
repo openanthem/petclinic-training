@@ -15,7 +15,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * @author Swetha Vemuri
  *
  */
-@Component
 public class JWTAuthTokenUtil implements Serializable {
 
 	/**
