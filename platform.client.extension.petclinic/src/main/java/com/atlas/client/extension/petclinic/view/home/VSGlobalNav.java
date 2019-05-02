@@ -17,7 +17,7 @@ import lombok.Setter;
  *
  */
 @Model @Getter @Setter
-public class VSHomeLeftBar {
+public class VSGlobalNav {
 
 	@Label("Home")
 	@MenuLink(url="petclinicdashboard/vpDashboard", imgSrc="notesIcon") 

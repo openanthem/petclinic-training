@@ -51,7 +51,7 @@ public class VLPet {
 		private VSHeader vsHeader;
 		
 		@MenuPanel
-		private VSLeftBar vsLeftBar;
+		private VSNavigationLinks vsNavigationLinks;
 	}
 	
 	@Model
@@ -149,7 +149,7 @@ public class VLPet {
 	
 	@Model
 	@Getter @Setter
-	public static class VSLeftBar {
+	public static class VSNavigationLinks {
 		
 		@Label("Sample Link 1")
 		@MenuLink
