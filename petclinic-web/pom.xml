@@ -5,11 +5,11 @@
  	<parent>
 		<groupId>com.antheminc.oss</groupId>
 		<artifactId>nimbus-parent</artifactId>
-		<version>1.1.12</version>
+		<version>1.1.13.BUILD-SNAPSHOT</version>
 	</parent>
   <properties>
-  	<nimbus.version>1.1.12</nimbus.version>
-  	<petclinic.version>1.1.12</petclinic.version>
+  	<nimbus.version>1.1.13.BUILD-SNAPSHOT</nimbus.version>
+  	<petclinic.version>1.1.13.BUILD-SNAPSHOT</petclinic.version>
   </properties>
   <groupId>com.anthem.petclinic.web</groupId>
   <artifactId>petclinic-web</artifactId>
