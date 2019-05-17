@@ -173,10 +173,12 @@ public class VPAddEditOwner {
 		@Label("Nickname")
 	    @NotNull(groups = { GROUP_1.class })
 		@TextBox(cssClass="inline")
+	    @Path
 	    private String nickname;
 	    
 	    @Label("Does user prefer nickname?")
 	    @CheckBox(postEventOnChange = true, cssClass="inline")
+	    @Path
 	    @ValidateConditional(when = "state == true", scope = ValidationScope.SIBLING, targetGroup = GROUP_1.class)
 	    private boolean shouldUseNickname;
 		
@@ -236,7 +238,7 @@ public class VPAddEditOwner {
 	
 		@Label("Submit")
 	    @Button(style = Button.Style.PRIMARY, type = Button.Type.submit)
-	    @Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/_update")
+	    @Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/.m/_update")
 	    @Config(url = "/p/ownerlandingview/_nav?pageId=vpOwners")
 	    private String submit;
 	
