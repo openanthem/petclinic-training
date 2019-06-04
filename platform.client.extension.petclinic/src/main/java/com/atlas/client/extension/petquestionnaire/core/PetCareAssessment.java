@@ -247,7 +247,7 @@ public class PetCareAssessment extends IdLong {
 		@Label("Textbox 5")
 		@CheckBox(postEventOnChange = true)
 		@NotNull
-		private String p5;
+		private Boolean p5;
 
 		@Label("Textbox 6")
 		@Max(value=10)
