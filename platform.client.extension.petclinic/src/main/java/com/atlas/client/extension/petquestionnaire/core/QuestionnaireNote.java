@@ -1,5 +1,5 @@
 /**
- *  Copyright 2016-2018 the original author or authors.
+ *  Copyright 2016-2019 the original author or authors.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,33 +13,28 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.atlas.client.extension.petclinic.core;
+package com.atlas.client.extension.petquestionnaire.core;
 
 import java.util.List;
 
 import com.antheminc.oss.nimbus.domain.defn.Domain;
 import com.antheminc.oss.nimbus.domain.defn.Repo;
-import com.antheminc.oss.nimbus.entity.AbstractEntity.IdLong;
-import com.atlas.client.extension.petclinic.view.pet.MealInstructionLineItem.NoteLineItem;
+import com.antheminc.oss.nimbus.domain.defn.Repo.Database;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * @author Tony Lopez
  *
  */
-@Domain(value = "mealinstruction", includeListeners = { Domain.ListenerType.update })
-@Repo(value = Repo.Database.rep_ws)
-@Getter @Setter @ToString
-public class MealInstruction extends IdLong {
+@Domain(value = "questionnaire_note", includeListeners = { Domain.ListenerType.update })
+@Repo(value = Database.rep_ws)
+@Getter @Setter
+public class QuestionnaireNote {
+
+	private Long id;
 	
-	private static final long serialVersionUID = 1L;
-	
-	private String name;
-	private String amount;
-	private String timeOfDay;
-	private String lengthOfTimeEaten;
-	private List<NoteLineItem> notes;
+	private String content;
+	private List<NoteOwner> owners;
 }

@@ -1,6 +1,7 @@
 package com.atlas.client.extension.petquestionnaire.core;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -8,6 +9,7 @@ import javax.validation.constraints.Size;
 
 import com.antheminc.oss.nimbus.domain.defn.Domain;
 import com.antheminc.oss.nimbus.domain.defn.Domain.ListenerType;
+import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
 import com.antheminc.oss.nimbus.domain.defn.Model;
 import com.antheminc.oss.nimbus.domain.defn.Repo;
 import com.antheminc.oss.nimbus.domain.defn.Repo.Cache;
@@ -17,25 +19,33 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.AccordionTab;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ButtonGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Calendar;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.CardDetail;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.CheckBoxGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ComboBox;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FieldValue;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FormElementGroup;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Grid;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.GridColumn;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.GridRowBody;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Link;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.LinkMenu;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Radio;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
 import com.antheminc.oss.nimbus.domain.defn.extension.ActivateConditional;
-import com.antheminc.oss.nimbus.domain.defn.extension.ValidateConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
 import com.antheminc.oss.nimbus.domain.defn.extension.MessageConditional;
+import com.antheminc.oss.nimbus.domain.defn.extension.ValidateConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.ValidateConditional.GROUP_1;
 import com.antheminc.oss.nimbus.domain.defn.extension.ValidateConditional.ValidationScope;
 import com.antheminc.oss.nimbus.domain.defn.extension.ValuesConditional;
-import com.antheminc.oss.nimbus.domain.defn.extension.ValuesConditionals;
 import com.antheminc.oss.nimbus.domain.defn.extension.ValuesConditional.Condition;
+import com.antheminc.oss.nimbus.domain.defn.extension.ValuesConditionals;
 import com.antheminc.oss.nimbus.entity.AbstractEntity.IdLong;
 import com.atlas.client.extension.petquestionnaire.core.CodeValueTypes.PositiveSatisfactionType;
 import com.atlas.client.extension.petquestionnaire.core.CodeValueTypes.SatisfactionType;
 import com.atlas.client.extension.petquestionnaire.core.CodeValueTypes.YesTest;
 
+import groovy.transform.ToString;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,8 +61,6 @@ public class PetCareAssessment extends IdLong {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Getter
-	@Setter
 	private PetCareForm petCareForm;
 	
 	@Model
@@ -81,7 +89,10 @@ public class PetCareAssessment extends IdLong {
 		@AccordionTab
 		@Label("Section 3")
 		private Quetionnaire_Section3 quetionnaire_Section3;
-				
+
+		@AccordionTab
+		@Label("Section 4")
+		private Questionnaire_Section4 questionnaire_Section4;
 	}
 	
 	@Model
@@ -214,7 +225,6 @@ public class PetCareAssessment extends IdLong {
 		@NotNull
 		@Label(value = "Question 11")
 		private String question11;
-
 	}
 	
 	@Model
@@ -270,4 +280,120 @@ public class PetCareAssessment extends IdLong {
 	
 	}
 	
+	@Model
+	@Getter @Setter
+	public static class Questionnaire_Section4 {
+		
+		@ButtonGroup(cssClass = "text-sm-right")
+		private VBG vbg;
+
+		@Label("Notes")
+		@Grid(expandableRows = true)
+		private List<QuestionnaireNoteLineItem> questionnaireNotes;
+		
+		@Model
+		@Getter
+		@Setter
+		public static class VBG {
+			
+			@Label("Add Custom")
+			@Button
+			@Config(url = "/vpMain/vtMain/vmCustomNote/section/form/_get?fn=param&expr=unassignMapsTo()")
+			@Config(url = "/vpMain/vtMain/vmCustomNote/_process?fn=_setByRule&rule=togglemodal")
+			private String addCustomNote;
+			
+			@Label("Add System Note")
+			@Button
+			@Config(url = "/vpMain/vtMain/vmSystemNote/_process?fn=_setByRule&rule=togglemodal")
+			private String addSystemNote;
+		}
+		
+		@Model
+		@Getter @Setter @ToString
+		public static class QuestionnaireNoteLineItem {
+			
+			@Label("ID")
+			@GridColumn(placeholder = "--")
+			private Long id;
+			
+			@Label("Content")
+			@GridColumn(placeholder = "--")
+			private String content;
+			
+			@LinkMenu
+			private VLM vlm;
+			
+			@GridRowBody
+			private RowBody rowBody;
+			
+			@GridColumn(hidden = true)
+			private List<NoteOwnerLineItem> owners;
+			
+			@Model @Getter @Setter
+			public static class VLM {
+
+				@Label("Edit")
+				@Link
+				@Config(url = "/vpMain/vtMain/vmCustomNote/section/form/_get?fn=param&expr=assignMapsTo('/.d/<!#this!>/../../.m')")
+				@Config(url = "/vpMain/vtMain/vmCustomNote/_process?fn=_setByRule&rule=togglemodal")
+				private String edit;
+
+				@Label("Remove")
+				@Link
+				@Config(url = "<!#this!>/../../.m/_delete")
+				private String remove;
+			}
+			
+			@Model @Getter @Setter
+			public static class RowBody {
+				
+				@CardDetail
+				private VS section;
+				
+				@Model @Getter @Setter
+				public static class VS {
+					
+					@CardDetail.Body
+					private CardBody cardBody;
+					
+					@Model @Getter @Setter
+					public static class CardBody {
+						
+						@Link
+						@Label("View Owners")
+						@Config(url = "/vpMain/vtMain/viewNoteOwnersModal/vsBody/authNotes/_replace?rawPayload=<!json(/../../../../owners)!>")
+						@Config(url = "/vpMain/vtMain/viewNoteOwnersModal/_process?fn=_setByRule&rule=togglemodal")
+						private String viewNotes;
+					}
+				}
+			}
+		}
+	}
+	
+	@Model
+	@Getter
+	@Setter
+	@ToString
+	public static class NoteOwnerLineItem {
+		
+		@CardDetail
+		private Card card;
+		
+		@Model
+		@Getter @Setter @ToString
+		public static class Card {
+			
+			@CardDetail.Body
+			private Body body;
+		}
+		
+		@Model
+		@Getter @Setter @ToString
+		public static class Body {
+			
+			@FieldValue(placeholder = "--")
+			@Label("Owner name")
+			private String name;
+		}
+	}
 }
