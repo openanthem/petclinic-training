@@ -1,0 +1,52 @@
+server:
+  port: 8080
+  servlet:
+    session: 
+      timeout: 1800
+    context-path: /petclinic
+    
+spring:
+  application:
+    name: petclinic
+    
+  h2:
+    console:
+      enabled: true
+      path: /console/
+    
+  data:
+    mongodb:
+      host: localhost
+      database: petclinic
+      port: 27017
+      
+  activiti:
+    processDefinitionLocationPrefix:  classpath*:process-defs/**.xml
+    
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+      
+  sqldatasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+        
+nimbus:
+  domain:
+    model:
+      basePackages: 
+        - com.antheminc.oss.nimbus.entity
+        - com.atlas.client.extension.petclinic.user
+        - com.atlas.client.extension.petclinic.core
+        - com.atlas.client.extension.petclinic.view
+        - com.atlas.client.extension.petquestionnaire.core
+        - com.atlas.client.extension.petquestionnaire.view
+  
+logging:
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } [%X{SESSIONID:- }] --- [%t] %-40.40logger{39} : %replace(%replace(%m){'\n', ''}){'\r', ''} %n${LOG_EXCEPTION_CONVERSION_WORD: %wEx}"  
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } [%X{SESSIONID:- }] --- [%t] %-40.40logger{39} : %replace(%replace(%m){'\n', ''}){'\r', ''} %n${LOG_EXCEPTION_CONVERSION_WORD: %wEx}"
+
+## Petclinic Env properties
+petclinic:
+  clinicname: PugsAndPaws
