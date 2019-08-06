@@ -26,7 +26,7 @@ import com.antheminc.oss.nimbus.test.domain.support.pageobject.UnitTestPage;
 import com.antheminc.oss.nimbus.test.domain.support.utils.MockHttpRequestBuilder;
 import com.antheminc.oss.nimbus.test.domain.support.utils.ParamUtils;
 import com.atlas.client.extension.petclinic.view.owner.CallLineItem;
-import com.atlas.client.extension.petclinic.view.owner.VPOwnerInfo.VCDOwnerInfo;
+import com.atlas.client.extension.petclinic.view.owner.VPOwnerInfo.VSOwnerInfo.VCDOwnerInfo;
 import com.atlas.client.extension.petclinic.view.pet.PetLineItem;
 
 /**
@@ -107,8 +107,10 @@ public class OwnerInfoUnitTestPage extends UnitTestPage {
 	}
 
 	public Param<VCDOwnerInfo> getOwnerCardDetailParam() {
-		return this.getParam("/vpOwnerInfo/vtOwnerInfo/vsOwnerInfo/vcdOwnerInfo");
+		return this.getParam("/vpOwnerInfo/vtOwnerInfo/vsOwnerInfo/vaBanner/vatBannerTab/vcdOwnerInfo");
 	}
+	
+	
 
 	public String getCallHistoryLabelText() {
 		MockHttpServletRequest request = MockHttpRequestBuilder.withUri(this.getViewRootDomainURI())

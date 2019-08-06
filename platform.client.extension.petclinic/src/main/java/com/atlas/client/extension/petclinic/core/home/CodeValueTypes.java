@@ -19,14 +19,23 @@ public class CodeValueTypes {
             values.add(new ParamValue("Dog", "Dog"));
             values.add(new ParamValue("Parrot", "Parrot"));
 			values.add(new ParamValue("Horse", "Horse"));
-			values.add(new ParamValue("Turtle", "Turtle"));
-			values.add(new ParamValue("Snake", "Snake"));
-            values.add(new ParamValue("Lizard", "Lizard"));
-            values.add(new ParamValue("Turtle", "Turtle"));
-			values.add(new ParamValue("Turkey", "Turkey"));
-			values.add(new ParamValue("Duck", "Duck"));
+			values.add(new ParamValue("Turtle", "Turle"));
 			values.add(new ParamValue("Yeti", "Yeti"));
 			values.add(new ParamValue("Other", "Other"));
+			return values;
+		}
+    }
+	
+	public static class veterinarianSpecialityType implements Source {
+    	@Override
+		public List<ParamValue> getValues(String paramPath) {
+			List<ParamValue> values = new ArrayList<>();
+			values.add(new ParamValue("Avian", "Avian"));
+            values.add(new ParamValue("Equine", "Equine"));
+            values.add(new ParamValue("Feline", "Feline"));
+            values.add(new ParamValue("Canine", "Canine"));
+			values.add(new ParamValue("Poultry", "Poultry"));
+			values.add(new ParamValue("Reptile & Amphibian", "Reptile & Amphibian"));
 			return values;
 		}
     }
@@ -108,9 +117,9 @@ public class CodeValueTypes {
 		public List<ParamValue> getValues(String paramPath) {
 			List<ParamValue> values = new ArrayList<>();
 			values.add(new ParamValue("do_not_send_notifications", "Do Not Send Notifications"));
-			values.add(new ParamValue("email", "Email"));
-			values.add(new ParamValue("physical_mail", "Mail"));
-			values.add(new ParamValue("text", "Text"));
+			values.add(new ParamValue("Email", "Email"));
+			values.add(new ParamValue("Physical_mail", "Mail"));
+			values.add(new ParamValue("Text", "Text"));
 			return values;
 		}
     }
@@ -126,16 +135,22 @@ public class CodeValueTypes {
 		}
     }
 	
-	public static class VetSpeciality implements Source {
+	public static class OwnerStatus implements Source {
     	@Override
 		public List<ParamValue> getValues(String paramPath) {
 			List<ParamValue> values = new ArrayList<>();
-			values.add(new ParamValue("Avian", "Avian"));
-			values.add(new ParamValue("Equine", "Equine"));
-			values.add(new ParamValue("Feline", "Feline"));
-			values.add(new ParamValue("Canine", "Canine"));
-			values.add(new ParamValue("Poultry", "Poultry"));
-			values.add(new ParamValue("Reptile & Amphibian", "Reptile & Amphibian"));
+			values.add(new ParamValue("Active", "Active"));
+			values.add(new ParamValue("Inactive", "Inactive"));
+			return values;
+		}
+    }
+	
+	public static class Sex implements Source {
+    	@Override
+		public List<ParamValue> getValues(String paramPath) {
+			List<ParamValue> values = new ArrayList<>();
+			values.add(new ParamValue("male", "Male"));
+			values.add(new ParamValue("female", "Female"));
 			return values;
 		}
     }

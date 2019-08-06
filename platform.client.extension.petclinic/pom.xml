@@ -188,7 +188,12 @@
 	      </plugins>
 	    </pluginManagement>
 	</build>
-
+	<repositories>
+        <repository>
+               <id>nexus</id>
+               <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+	</repositories>
 	<!-- <repositories> -->
 		<!-- <repository>
 			<id>spring-snapshots</id>
@@ -216,4 +221,5 @@
 			</snapshots>
 		</repository> -->
 	<!-- </repositories> -->
+	
 </project>

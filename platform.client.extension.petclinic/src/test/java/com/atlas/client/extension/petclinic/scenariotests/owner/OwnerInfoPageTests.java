@@ -31,8 +31,8 @@ import com.atlas.client.extension.petclinic.core.pet.Pet;
 import com.atlas.client.extension.petclinic.pageobject.model.OwnerInfoUnitTestPage;
 import com.atlas.client.extension.petclinic.scenariotests.AbstractPetclinicSpringTest;
 import com.atlas.client.extension.petclinic.view.owner.CallLineItem;
-import com.atlas.client.extension.petclinic.view.owner.VPOwnerInfo.VCDBOwner;
-import com.atlas.client.extension.petclinic.view.owner.VPOwnerInfo.VCDOwnerInfo;
+import com.atlas.client.extension.petclinic.view.owner.VPOwnerInfo.VSOwnerInfo.VCDBOwner;
+import com.atlas.client.extension.petclinic.view.owner.VPOwnerInfo.VSOwnerInfo.VCDOwnerInfo;
 import com.atlas.client.extension.petclinic.view.pet.PetLineItem;
 
 /**
@@ -81,7 +81,7 @@ public class OwnerInfoPageTests extends AbstractPetclinicSpringTest {
 		this.mongo.insert(owner1, CollectionNames.OWNER);
 		
 		// Build the owner info page to work with in the test cases.
-		this.ownerInfoPage = this.homepage.clickGoToOwners().clickOwnerInfo(0);
+		this.ownerInfoPage = this.homepage.getHeader().clickOwners().clickOwnerInfo(0);
 	}
 	
 	@Test
@@ -136,8 +136,10 @@ public class OwnerInfoPageTests extends AbstractPetclinicSpringTest {
 		Param<VCDBOwner> vcdbParam = vcdParam.findParamByPath("/vcdbOwner");
 		assertThat(vcdbParam.findParamByPath("/firstName").getLeafState()).isEqualTo("Oscar");
 		assertThat(vcdbParam.findParamByPath("/lastName").getLeafState()).isEqualTo("Grouch");
-		assertThat(vcdbParam.findParamByPath("/address").getLeafState()).isEqualTo("123 Sesame Street");
-		assertThat(vcdbParam.findParamByPath("/city").getLeafState()).isEqualTo("New York City");
+//		assertThat(vcdbParam.findParamByPath("/addressGroup/address").getLeafState()).isEqualTo("123 Sesame Street");
+//		assertThat(vcdbParam.findParamByPath("/addressGroup/city").getLeafState()).isEqualTo("New York City");
+//		assertThat(vcdbParam.findParamByPath("/addressGroup/state").getLeafState()).isEqualTo("NY");
+//		assertThat(vcdbParam.findParamByPath("/addressGroup/zip").getLeafState()).isEqualTo("10128");
 		assertThat(vcdbParam.findParamByPath("/telephone").getLeafState()).isEqualTo("1-234-567-8910");
 	}
 	

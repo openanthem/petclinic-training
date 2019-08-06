@@ -34,7 +34,7 @@ import com.atlas.client.extension.petclinic.view.owner.VisitLineItem;
  * @author Tony Lopez
  *
  */
-public class HomePageTests extends AbstractPetclinicSpringTest {
+public class VisitLandingPageTest extends AbstractPetclinicSpringTest {
 
 	@Test
 	public void testMyVisitsGridDisplay() {
@@ -58,13 +58,5 @@ public class HomePageTests extends AbstractPetclinicSpringTest {
 		assertThat(actual.get(0).getPetName()).isEqualTo(expected.getPetName());
 		assertThat(actual.get(0).getReasonForVisit()).isEqualTo(expected.getReasonForVisit());
 		assertThat(actual.get(0).getStatus()).isEqualTo(expected.getStatus());
-	}
-	
-	@Test
-	public void testClickOwners() {
-		OwnerLandingUnitTestPage ownerLandingPage = this.homepage.clickGoToOwners();
-		// Validate that after clicking goToOwners that the view param is generated.
-		Param<VROwnerLanding> ownerLandingViewParam = ParamUtils.extractResponseByParamPath(ownerLandingPage.getFromResponse(), "/ownerlandingview");
-		assertThat(ownerLandingViewParam).isNotNull();
 	}
 }

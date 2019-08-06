@@ -15,17 +15,14 @@
  */
 package com.atlas.client.extension.petclinic.view.pet;
 
-import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
-
 import java.time.ZonedDateTime;
 
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-
+import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo.Path;
 import com.antheminc.oss.nimbus.domain.defn.Model;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.CardDetail;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FieldValue;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.GridColumn;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.GridRowBody;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Link;
@@ -44,10 +41,6 @@ import lombok.ToString;
 @MapsTo.Type(MealInstruction.class)
 @Getter @Setter @ToString
 public class MealInstructionLineItem {
-
-	@GridColumn(hidden = true)
-	@Path
-	private Long id;
 	
 	@Label("Food Name")
 	@GridColumn(placeholder = "--")
@@ -90,23 +83,28 @@ public class MealInstructionLineItem {
    	@Getter @Setter
    	public static class VCDBody {
  		
+ 		@Label("How long as pet eaten food?")
+ 		@FieldValue(placeholder = "--")
+ 		@Path
+ 		private String lengthOfTimeEaten;
+ 		
  		@Label("Created By")
- 		@GridColumn(placeholder = "--")
+ 		@FieldValue(placeholder = "--")
  		@Path
  		private String createdBy;
  		
  		@Label("Created Date")
- 		@GridColumn(placeholder = "--")
+ 		@FieldValue(placeholder = "--")
  		@Path
  		private ZonedDateTime createdDate;
  		
  		@Label("Last Modified By")
- 		@GridColumn(placeholder = "--")
+ 		@FieldValue(placeholder = "--")
  		@Path
  		private String lastModifiedBy;
  		
  		@Label("Last Modified Date")
- 		@GridColumn(placeholder = "--")
+ 		@FieldValue(placeholder = "--")
  		@Path
  		private ZonedDateTime lastModifiedDate;
  	}

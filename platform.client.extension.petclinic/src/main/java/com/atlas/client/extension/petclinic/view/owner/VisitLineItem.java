@@ -65,6 +65,11 @@ public class VisitLineItem {
         @Link(imgSrc="edit.png")
         @Config(url="/p/petassessmentview/_new")
         private String petQuestionnaire;
+    	
+    	@Label("Pet Care Questionnaire")
+        @Link(imgSrc="edit.png")
+        @Config(url="/p/petcareassessmentview/_new")
+        private String petCareQuestionnaire;
     }
 
 }

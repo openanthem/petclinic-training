@@ -1,0 +1,35 @@
+package com.atlas.client.extension.petclinic.view;
+
+import com.antheminc.oss.nimbus.domain.model.state.internal.DefaultParamState;
+import com.antheminc.oss.nimbus.domain.model.state.EntityState.Param;
+import com.antheminc.oss.nimbus.entity.AbstractEntity.IdLong
+import com.antheminc.oss.nimbus.entity.DBSequence;
+import java.util.List;
+import java.time.LocalDate;
+
+import org.springframework.data.mongodb.core.MongoOperations;
+import com.atlas.client.extension.petclinic.core.demos.PetHistory;
+
+rule "Add a child to the treegrid"
+no-loop true
+	when
+		$param : DefaultParamState();
+	then
+		MongoOperations mongo = $param.getAspectHandlers().getBeanResolver().get(MongoOperations.class);
+		DBSequence sequence = mongo.findById("pethistory", DBSequence.class, "sequence");
+		if (null == sequence) {
+			sequence = new DBSequence();
+			sequence.setId("pethistory");
+			sequence.setSeq(0);
+		} else {
+			sequence.setSeq(sequence.getSeq() + 1);
+		}
+		PetHistory child = new PetHistory();
+		child.setId(sequence.getSeq());
+		child.setName("Pet " + child.getId());
+		child.setDob(LocalDate.now());
+		child.setSex(child.getId() % 2 == 0 ? "Female" : "Male");
+		
+		mongo.save(sequence, "sequence");
+		mongo.insert(child, "pethistory");
+end
