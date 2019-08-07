@@ -23,6 +23,7 @@ import com.antheminc.oss.nimbus.domain.defn.Model;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Grid;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Modal;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Paragraph;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Tile;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
@@ -34,29 +35,38 @@ import lombok.Setter;
  * @author Tony Lopez
  *
  */
-@Model @Getter @Setter
+@Model
+@Getter @Setter
 public class VPNotes {
 
 	@Tile
 	private VTNotes vtNotes;
 
-	@Model @Getter @Setter
+	@Model
+	@Getter @Setter
 	public static class VTNotes {
 		
-		@Modal
-		private VMAddNote vmAddNote;
+		@Label("This is the Notes section of Pet Clinic.")
+    	@Paragraph(cssClass="font-weight-bold")
+    	private String headerCallSection;
+		
+		@Modal(closable = true, width = "large")
+		private VMNotes vmNotes;
 		
 		@Section
 		private VSNotes vsNotes;	
 	}
 	
-	@Model @Getter @Setter
+	@Model
+	@Getter @Setter
 	public static class VSNotes {
 		
 		@Label(value = "Add a Note")
 		@Button(imgSrc = "fa-plus-circle")
-		@Config(url = "/vpNotes/vtNotes/vmAddNote/vsAddNote/vfAddNote/noteType/_process?fn=_set&value=general")
-		@Config(url = "/vpNotes/vtNotes/vmAddNote/_process?fn=_setByRule&rule=togglemodal")
+		@Config(url = "/vpNotes/vtNotes/vmNotes/mode/_process?fn=_set&value=add")
+		@Config(url = "/vpNotes/vtNotes/vmNotes/vsMain/vfAddNote/_replace?rawPayload=null")
+		@Config(url = "/vpNotes/vtNotes/vmNotes/vsMain/vfAddNote/noteType/_process?fn=_set&value=general")
+		@Config(url = "/vpNotes/vtNotes/vmNotes/_process?fn=_setByRule&rule=togglemodal")
 		private String addNote;
 		
 		@Label("Notes")

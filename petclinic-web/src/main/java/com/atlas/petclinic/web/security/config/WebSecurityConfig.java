@@ -11,18 +11,13 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/**
- * @author AC63348
- *
- */
+import com.antheminc.oss.nimbus.domain.session.SessionProvider;
+import com.atlas.petclinic.web.security.utils.JWTAuthTokenUtil;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
-	JWTWebAuthenticationFilter authFilter;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -42,13 +37,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(clientUserDetailsService());
+    public void globalUserDetails(AuthenticationManagerBuilder auth, SessionProvider sessionProvider) throws Exception {
+        auth.userDetailsService(clientUserDetailsService(sessionProvider));
     }
     
     @Bean
-	public ClientUserDetailsServiceImpl clientUserDetailsService() {
-    	ClientUserDetailsServiceImpl clientUserDetailsService = new ClientUserDetailsServiceImpl();
-		return clientUserDetailsService;
+	public ClientUserDetailsServiceImpl clientUserDetailsService(SessionProvider sessionProvider) {
+    	return new ClientUserDetailsServiceImpl(sessionProvider);
 	}
+    
+    @Bean
+    public JWTAuthTokenUtil jwtAuthTokenUtil() {
+    	return new JWTAuthTokenUtil();
+    }
+    
+    @Bean
+    public JWTWebAuthenticationFilter jwtWebAuthenticationFilter(ClientUserDetailsServiceImpl userDetailsService) {
+    	return new JWTWebAuthenticationFilter(jwtAuthTokenUtil(), userDetailsService);
+    }
 }

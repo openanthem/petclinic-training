@@ -15,6 +15,8 @@
  */
 package com.atlas.client.extension.petclinic.view.owner;
 
+import java.time.LocalDate;
+
 import javax.validation.constraints.NotNull;
 
 import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
@@ -28,6 +30,7 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ButtonGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.CheckBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ComboBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Form;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FormElementGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Header;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
@@ -37,8 +40,8 @@ import com.antheminc.oss.nimbus.domain.defn.extension.ValidateConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.ValidateConditional.GROUP_1;
 import com.antheminc.oss.nimbus.domain.defn.extension.ValidateConditional.GROUP_3;
 import com.antheminc.oss.nimbus.domain.defn.extension.ValidateConditional.ValidationScope;
-import com.atlas.client.extension.petclinic.core.CodeValueTypes.OwnerNotificationPreferences;
-import com.atlas.client.extension.petclinic.core.Owner;
+import com.atlas.client.extension.petclinic.core.home.CodeValueTypes.OwnerNotificationPreferences;
+import com.atlas.client.extension.petclinic.core.owner.Owner;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -70,103 +73,162 @@ public class VPAddEditOwner {
 	@Model @Getter @Setter
 	public static class VSAddEditOwner {
 		
-	    @Form(cssClass="twoColumn")
+	    @Form
 	    private VFAddEditOwner vfAddEditOwner;
 	}
 	
 	@Type(Owner.class)
 	@Getter @Setter
 	public static class VFAddEditOwner {
-	
-	    @ButtonGroup(cssClass="text-sm-right pt-2 pb-2")
-	    private VBGAddOwnerButtonGrp vbgAddOwnerButtonGrp;
 	    
 	    // TODO id is not sent with UI payload using @ParamContext(enabled = false, visible = true)
 	    // Should we offer a way of supporting this in favor of deprecating readOnly?
 	    @Label("Owner ID")
-	    @TextBox(readOnly = true)
+	    @TextBox(readOnly = true, cssClass="oneColumn")
 	    @Path
 	    private Long id;
 	    
-	    @Label("First Name")
-		@TextBox
-		@NotNull
-		@Path
-		private String firstName;
+	    @Label("Name")
+	    @FormElementGroup(cssClass="oneColumn")
+		private SectionName sectionName;
+	    
+	    @Label("Address")
+	    @FormElementGroup(cssClass="oneColumn")
+		private SectionAddress sectionAddresss;
+	    
+	    @FormElementGroup(cssClass="oneColumn")
+	    private SectionNickname sectionNickname;
+	    
+	    @FormElementGroup(cssClass="fourColumn")
+	    private SectionNotificationPreference sectionNotificationPreference;
+	    
+	    @FormElementGroup(cssClass="oneColumn")
+		private SectionContact sectionContact;
+	    
+	    @ButtonGroup(cssClass="text-sm-left pt-2 pb-2 oneColumn")
+	    private VBGAddOwnerButtonGrp vbgAddOwnerButtonGrp;
+	}
+	
+	@Type(Owner.class)
+	@Model
+	@Getter @Setter
+	public static class SectionName {
+		
+		@Label("First Name")
+	    @TextBox(cssClass="inline")
+	    @NotNull
+	    @Path
+	    private String firstName;
 		
 		@Label("Last Name")
-	    @TextBox 
+		@TextBox(cssClass="inline")
 	    @NotNull
 	    @Path
 	    private String lastName;
-	    
-		@Label("Nickname")
-	    @NotNull(groups = { GROUP_1.class })
-	    @TextBox
-	    private String nickname;
-	    
-	    @Label("Does user prefer nickname?")
-	    @CheckBox(postEventOnChange = true)
-	    @ValidateConditional(when = "state == true", scope = ValidationScope.SIBLING, targetGroup = GROUP_1.class)
-	    private boolean shouldUseNickname;
-	    
-	    @Label("Notification Preference")
-	    @NotNull
-	    @ComboBox(postEventOnChange = true)
-	    @Values(OwnerNotificationPreferences.class)
-	    @ValidateConditional(when = "state == 'physical_mail'", scope = ValidationScope.CHILDREN, targetGroup = GROUP_1.class, targetPath = { 
-	    		"../address",
-	    		"../city",
-	    		"../state",
-	    		"../zip",
-	    		"../telephone",
-	    		"../email"
-	    })
-	    @ValidateConditional(when = "state == 'email'", scope = ValidationScope.CHILDREN, targetGroup = GROUP_3.class, targetPath = {
-	    		"../address",
-	    		"../city",
-	    		"../state",
-	    		"../zip",
-	    		"../telephone",
-	    		"../email"
-	    })
-	    private String notificationPreference;
-	    
-	    @Path 
-		@TextBox 
-		@Label("Address")
+		
+	}
+	
+	@Type(Owner.class)
+	@Model
+	@Getter @Setter
+	public static class SectionAddress {
+		
+		@Path 
+		@TextBox(cssClass="inline")
+		@Label("Address 1")
 		@NotNull(groups = { GROUP_1.class })
 		private String address;
+		
+		@Path 
+		@TextBox(cssClass="inline")
+		@Label("Address 2 (Optional)")
+		@NotNull(groups = { GROUP_1.class })
+		private String address2;
 		 
 		@Path 
-	    @TextBox 
+	    @TextBox(cssClass="sixColumn") 
 	    @NotNull(groups = { GROUP_1.class })
 	    @Label("City")
 	    private String city;
 		
 		@Path 
-	    @TextBox 
+		@TextBox(cssClass ="inline")
 	    @NotNull(groups = { GROUP_1.class })
 	    @Label("State")
 	    private String state;
 		
 		@Path 
-	    @TextBox 
+		@TextBox(cssClass="inline")
 	    @NotNull(groups = { GROUP_1.class })
-	    @Label("Zip Code")
+	    @Label("Zip Code")	
 	    private String zip;
+		
+	}
+	
+	@Type(Owner.class)
+	@Model
+	@Getter @Setter
+	public static class SectionNickname {
+		
+		@Label("Nickname")
+	    @NotNull(groups = { GROUP_1.class })
+		@TextBox(cssClass="inline")
+	    private String nickname;
 	    
+	    @Label("Does user prefer nickname?")
+	    @CheckBox(postEventOnChange = true, cssClass="inline")
+	    @ValidateConditional(when = "state == true", scope = ValidationScope.SIBLING, targetGroup = GROUP_1.class)
+	    private boolean shouldUseNickname;
+		
+	}
+
+	
+	@Type(Owner.class)
+	@Model
+	@Getter @Setter
+	public static class SectionNotificationPreference {
+		
+	    @Label("Notification Preference")
+	    @NotNull
+	    @ComboBox(postEventOnChange = true)
+	    @Values(OwnerNotificationPreferences.class)
+	    @ValidateConditional(when = "state == 'Physical_mail'", scope = ValidationScope.CHILDREN, targetGroup = GROUP_1.class, targetPath = { 
+	    		"../../sectionAddresss/address",
+	    		"../../sectionAddresss/city",
+	    		"../../sectionAddresss/state",
+	    		"../../sectionAddresss/zip",
+	    		"../../sectionContact/telephone",
+	    		"../../sectionContact/email"
+	    })
+	    @ValidateConditional(when = "state == 'Email'", scope = ValidationScope.CHILDREN, targetGroup = GROUP_3.class, targetPath = {
+	    		"../../sectionAddresss/address",
+	    		"../../sectionAddresss/city",
+	    		"../../sectionAddresss/state",
+	    		"../../sectionAddresss/zip",
+	    		"../../sectionContact/telephone",
+	    		"../../sectionContact/email"
+	    })
+	    private String notificationPreference;
+		
+	}
+	
+	@Type(Owner.class)
+	@Model
+	@Getter @Setter
+	public static class SectionContact {
+		
 	    @Path 
-	    @TextBox 
+	    @TextBox(cssClass="inline")
 	    @NotNull
 	    @Label("Telephone") 
 	    private String telephone;
 	    
 	    @Path 
-	    @TextBox 
+	    @TextBox(cssClass="inline")
 	    @NotNull(groups = { GROUP_3.class })
 	    @Label("Email Address") 
 	    private String email;
+		
 	}
 	
 	@Model @Getter @Setter
@@ -174,7 +236,11 @@ public class VPAddEditOwner {
 	
 		@Label("Submit")
 	    @Button(style = Button.Style.PRIMARY, type = Button.Type.submit)
-	    @Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionName/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionAddresss/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionNickname/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionNotificationPreference/_update")
+		@Config(url = "/vpAddEditOwner/vtAddEditOwner/vsAddEditOwner/vfAddEditOwner/sectionContact/_update")
 	    @Config(url = "/p/ownerlandingview/_nav?pageId=vpOwners")
 	    private String submit;
 	

@@ -22,7 +22,7 @@ import com.antheminc.oss.nimbus.domain.defn.Model;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.GridColumn;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.GridColumn.FilterMode;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
-import com.atlas.client.extension.petclinic.core.OwnerCall;
+import com.atlas.client.extension.petclinic.core.owner.OwnerCall;
 
 import lombok.Getter;
 import lombok.Setter;

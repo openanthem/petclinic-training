@@ -21,6 +21,7 @@ import com.antheminc.oss.nimbus.context.BeanResolverStrategy;
 import com.antheminc.oss.nimbus.domain.cmd.Action;
 import com.antheminc.oss.nimbus.test.domain.support.pageobject.UnitTestPage;
 import com.antheminc.oss.nimbus.test.domain.support.utils.MockHttpRequestBuilder;
+import com.atlas.client.extension.petclinic.view.owner.VPAddEditOwner.SectionName;
 import com.atlas.client.extension.petclinic.view.owner.VPAddEditOwner.VFAddEditOwner;
 
 /**
@@ -30,7 +31,7 @@ import com.atlas.client.extension.petclinic.view.owner.VPAddEditOwner.VFAddEditO
 public class AddEditOwnerUnitTestPage extends UnitTestPage {
 
 	private OwnerLandingUnitTestPage parent;
-	private VFAddEditOwner form;
+	private SectionName form;
 	
 	public AddEditOwnerUnitTestPage(BeanResolverStrategy beanResolver, String clientId, String clientApp, Long refId) {
 		super(beanResolver, clientId, clientApp, "owner", "ownerview", "vpAddEditOwner", refId);
@@ -41,8 +42,8 @@ public class AddEditOwnerUnitTestPage extends UnitTestPage {
 		this.parent = parent;
 	}
 
-	public AddEditOwnerUnitTestPage fillForm(VFAddEditOwner form) {
-		this.form = form;
+	public AddEditOwnerUnitTestPage fillForm(SectionName owner1) {
+		this.form = owner1;
 		return this;
 	}
 	

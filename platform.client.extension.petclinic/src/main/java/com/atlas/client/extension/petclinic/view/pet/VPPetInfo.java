@@ -16,7 +16,7 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Grid;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Tile;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
-import com.atlas.client.extension.petclinic.core.Pet;
+import com.atlas.client.extension.petclinic.core.pet.Pet;
 import com.atlas.client.extension.petclinic.view.owner.VisitLineItem;
 
 import lombok.Getter;
@@ -58,7 +58,7 @@ public class VPPetInfo {
 	@Getter @Setter
 	public static class VCDPetInfo {
 		
-		@CardDetail.Body
+		@CardDetail.Body(cssClass = "threeColumn")
 		private VCDBPet vcdbPet;
 	}
 	
@@ -74,18 +74,13 @@ public class VPPetInfo {
 		@Label("Pet's Name")
 		private String petName;	
 		
-		@Path @FieldValue 
+		@Path @FieldValue
 		@Label("Date Of Birth")
 		private LocalDate dob;
 		
 		@Path @FieldValue 
 		@Label("Type")
 		private String type;
-		
-		@Path @FieldValue
-		@Label("Assigned Vet")
-		private String vetName;
-		
 	}
 	
 	@Model

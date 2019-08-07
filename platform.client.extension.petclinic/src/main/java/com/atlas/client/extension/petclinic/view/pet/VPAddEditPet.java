@@ -22,7 +22,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
-import com.antheminc.oss.nimbus.domain.defn.Executions.Configs;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo.Path;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo.Type;
@@ -46,12 +45,11 @@ import com.antheminc.oss.nimbus.domain.defn.extension.EnableConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.LabelConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.ValuesConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.VisibleConditional;
-import com.atlas.client.extension.petclinic.core.CodeValueTypes.AllCategory;
-import com.atlas.client.extension.petclinic.core.CodeValueTypes.CatCategory;
-import com.atlas.client.extension.petclinic.core.CodeValueTypes.DogCategory;
-import com.atlas.client.extension.petclinic.core.CodeValueTypes.petType;
-import com.atlas.client.extension.petclinic.core.Pet;
-import com.atlas.client.extension.petclinic.core.Veterinarian;
+import com.atlas.client.extension.petclinic.core.home.CodeValueTypes.AllCategory;
+import com.atlas.client.extension.petclinic.core.home.CodeValueTypes.CatCategory;
+import com.atlas.client.extension.petclinic.core.home.CodeValueTypes.DogCategory;
+import com.atlas.client.extension.petclinic.core.home.CodeValueTypes.petType;
+import com.atlas.client.extension.petclinic.core.pet.Pet;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -66,9 +64,6 @@ public class VPAddEditPet {
 	
 	 @Tile(size = Tile.Size.Large)
 	 private VTAddEditPet vtAddEditPet;
-	 
-	 @Path(linked=false)
-	 private List<Veterinarian> vets;
 
 	@Model
 	@Getter @Setter
@@ -80,6 +75,12 @@ public class VPAddEditPet {
 	    
 		@Section
 	    private VSAddEditPet vsAddEditPet;
+		
+		/* This section is added to test the scenario of CSS Class being applied to the section appropriately
+		 * based on the visible conditional.  And this will be tested in our end-end tests. 
+		 */
+		@Section(cssClass="memberBorderSection")
+	    private EmptySection emptySection;	    
 	    
 	}
 	
@@ -95,9 +96,6 @@ public class VPAddEditPet {
 	@Type(Pet.class)
 	@Getter @Setter
 	public static class VFAddEditPet {
-		
-		@ButtonGroup(cssClass="text-sm-right pt-2 pb-2")
-		private VBGAddPetButtonGrp vbgAddPetButtonGrp;
 		
 		// TODO id is not sent with UI payload using @ParamContext(enabled = false, visible = true)
 	    // Should we offer a way of supporting this in favor of deprecating readOnly?
@@ -126,6 +124,7 @@ public class VPAddEditPet {
 			@ValuesConditional.Condition(when="state == 'Cat'", then = @Values(value=CatCategory.class))
 		})
 		@VisibleConditional(targetPath = { "../category" }, when = "state != 'Horse'")
+		@VisibleConditional(targetPath = { "../../../emptySection" }, when = "state != 'Cat'")
 		@EnableConditional(targetPath = { "../category" }, when = "state != 'Parrot'")
 		@LabelConditional(targetPath = "/../name", condition = {
 			@LabelConditional.Condition(when = "state != null", then = @Label("<!/!>'s Name"))
@@ -143,7 +142,6 @@ public class VPAddEditPet {
 		@Label("Add Meal Instruction")
 		@Button
 		@Config(url = "/vpAddEditPet/vtAddEditPet/vmMealInstruction/section/form/_get?fn=param&expr=unassignMapsTo()")
-		@Config(url = "/vpAddEditPet/vtAddEditPet/vmMealInstruction/section/form/_process?fn=_setByRule&rule=rules/common/setId")
 		@Config(url = "/vpAddEditPet/vtAddEditPet/vmMealInstruction/_process?fn=_setByRule&rule=togglemodal")
 		private String addMealInstruction;
 		
@@ -151,6 +149,9 @@ public class VPAddEditPet {
 		@Grid(onLoad = true, expandableRows = true)
 		@Path
 		private List<MealInstructionLineItem> mealInstructions;
+		
+		@ButtonGroup(cssClass="text-sm-right pt-2 pb-2")
+		private VBGAddPetButtonGrp vbgAddPetButtonGrp;
 	}
 	
 	@Type(Pet.class)
@@ -160,7 +161,6 @@ public class VPAddEditPet {
 		@Values(value=AllCategory.class)
 		@Path("category")
 		@PickListSelected(postEventOnChange=true)
-		@NotNull
 		private String[] selected;
 	}
 	
@@ -169,19 +169,18 @@ public class VPAddEditPet {
 	public static class VBGAddPetButtonGrp {
 		
 		@Label("Submit")
-		@Button(style = Button.Style.PRIMARY,type=Button.Type.submit)
-		@Configs({
-			@Config(url="/vpAddEditPet/vtAddEditPet/vsAddEditPet/vfAddEditPet/_update"),
-			@Config(url="/vpAddEditPet/vets/_process?fn=_set&url=/p/veterinarian/_search?fn=query"),
-			@Config(url="/vpAddEditPet/.m/_process?fn=_setByRule&rule=assignpet&associatedParam=/vpAddEditPet/vets/_get"),
-		//	@Config(url="/p/veterinarian:<!/.m/vetId!>/assignedPets/_process?fn=_add&value=<!/.m/id!>"),
-			@Config( when="findStateByPath('/.m/vetId') != null", url="/p/veterinarian:<!/.m/vetId!>/assignedPets/_process?fn=_add&value=<!/.m/id!>"),
-			@Config(url="/p/ownerview:<!/.m/ownerId!>/_nav?pageId=vpOwnerInfo")
-		})
+		@Button(style = Button.Style.PRIMARY,type=Button.Type.submit, browserBack = true)
+		@Config(url="/vpAddEditPet/vtAddEditPet/vsAddEditPet/vfAddEditPet/_update")
 		private String submit;
 	
 		@Label("Cancel")
-		@Button(style = Button.Style.PRIMARY, type = Button.Type.reset, browserBack = true)
+		@Button(style = Button.Style.PLAIN, type = Button.Type.reset, browserBack = true)
 		private String cancel;
+	}
+	
+	@Model
+	@Getter @Setter
+	public static class EmptySection {
+		
 	}
 }

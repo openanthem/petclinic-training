@@ -27,8 +27,8 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
 import com.antheminc.oss.nimbus.domain.defn.extension.ActivateConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
-import com.atlas.client.extension.petclinic.core.MealInstruction;
-import com.atlas.client.extension.petclinic.core.Pet;
+import com.atlas.client.extension.petclinic.core.pet.MealInstruction;
+import com.atlas.client.extension.petclinic.core.pet.Pet;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -80,6 +80,11 @@ public class VMMealInstruction {
 		@TextBox
 		@Path
 		private String timeOfDay;
+		
+		@Label("How long has pet eaten this food (in months)?")
+ 		@TextBox
+ 		@Path
+ 		private String lengthOfTimeEaten;
 		
 		@ButtonGroup
 		private VBG vbg;

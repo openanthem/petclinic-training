@@ -1,67 +1,52 @@
+server:
+  port: 8082
+  servlet:
+    session: 
+      timeout: 1800
+    context-path: /petclinic
+    
 spring:
   application:
     name: petclinic
+    
+  h2:
+    console:
+      enabled: true
+      path: /console/
+    
   data:
     mongodb:
       host: localhost
       database: petclinic
       port: 27017
+      
   activiti:
-    processDefinitionLocationPrefix: classpath*:process-defs/**.xml
+    processDefinitionLocationPrefix:  classpath*:process-defs/**.xml
     
-    
-process:
-  key:
-    regex: ([A-Za-z0-9_\\-\\*~\\?=\\.\\$]+)
-  database:
-    driver: embeddedH2
-    url: embeddedH2
-    username: embeddedH2
-    password: embeddedH2
-  history:
-    level: full
-  definitions:
-  - classpath*:process-defs/**.xml
-  rules:
-  - rules/**.drl
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+      
+  sqldatasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+        
+nimbus:
+  domain:
+    model:
+      basePackages: 
+        - com.antheminc.oss.nimbus.entity
+        - com.atlas.client.extension.petclinic.user
+        - com.atlas.client.extension.petclinic.core
+        - com.atlas.client.extension.petclinic.view
+        - com.atlas.client.extension.petquestionnaire.core
+        - com.atlas.client.extension.petquestionnaire.view
   
-  
-platform:
-  config:
-    secure:
-      regex: '^[a-zA-Z0-9<>()\[\]@/: &.=?,$#_-]{1,1000}'
-      
-      
-server:
-  port: 8082
-  servlet:
-    context-path: /petclinic
-    
-    
-domain:
-  model:
-    basePackages:
-    - com.antheminc.oss.nimbus.entity
-    - com.atlas.client.extension.petclinic.user
-    - com.atlas.client.extension.petclinic.core
-    - com.atlas.client.extension.petclinic.view
-    - com.atlas.client.extension.petquestionnaire.core
-    - com.atlas.client.extension.petquestionnaire.view
-    typeClassMappings:
-      java.lang.String: string
-    includeFilter:
-    - a
-    - b
-    persistenceStrategy: ATOMIC
-  action: abc
-  validation:
-    markerAnnotations: javax.validation.Constraint
-    
-    
-model:
-  persistence:
-    strategy:
-      mode: ATOMIC
-      
-      
-staticResourcesPath: ./target/webapp/
+logging:
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } [%X{SESSIONID:- }] --- [%t] %-40.40logger{39} : %replace(%replace(%m){'\n', ''}){'\r', ''} %n${LOG_EXCEPTION_CONVERSION_WORD: %wEx}"  
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } [%X{SESSIONID:- }] --- [%t] %-40.40logger{39} : %replace(%replace(%m){'\n', ''}){'\r', ''} %n${LOG_EXCEPTION_CONVERSION_WORD: %wEx}"
+
+## Petclinic Env properties
+petclinic:
+  clinicname: PugsAndPaws

@@ -1,7 +1,5 @@
 package com.atlas.client.extension.petclinic.scenariotests.pet;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.time.LocalDate;
@@ -19,9 +17,9 @@ import com.antheminc.oss.nimbus.domain.model.state.EntityState.Param;
 import com.antheminc.oss.nimbus.support.Holder;
 import com.antheminc.oss.nimbus.test.domain.support.utils.ExtractResponseOutputUtils;
 import com.antheminc.oss.nimbus.test.domain.support.utils.MockHttpRequestBuilder;
-import com.atlas.client.extension.petclinic.core.Owner;
-import com.atlas.client.extension.petclinic.core.Pet;
-import com.atlas.client.extension.petclinic.core.Veterinarian;
+import com.atlas.client.extension.petclinic.core.owner.Owner;
+import com.atlas.client.extension.petclinic.core.pet.Pet;
+import com.atlas.client.extension.petclinic.core.veterinarian.Veterinarian;
 import com.atlas.client.extension.petclinic.scenariotests.AbstractPetclinicSpringTest;
 import com.atlas.client.extension.petclinic.view.pet.VPAddEditPet.VFAddEditPet;
 import com.atlas.client.extension.petclinic.view.pet.VRPet;
@@ -38,7 +36,6 @@ public class AddEditPetUnitTest extends AbstractPetclinicSpringTest {
 		assignedPets.add(new Random().nextLong());
 		assignedPets.add(new Random().nextLong());
 		assignedPets.add(new Random().nextLong());
-		v1.setAssignedPets(assignedPets);
 		v1.setSpeciality("Canine");
 		
 		Veterinarian v2 = new Veterinarian();
@@ -114,9 +111,6 @@ public class AddEditPetUnitTest extends AbstractPetclinicSpringTest {
 		assertNotNull(petViewParam.findParamByPath("/vpAddEditPet/vets").getLeafState());
 		Pet newlyAddedPet = (Pet) petViewParam.findParamByPath("/.m").getState();
 		assertNotNull(newlyAddedPet);
-		assertNotNull(newlyAddedPet.getVetId());
-		assertNotNull(newlyAddedPet.getVetName());
-		assertEquals("William Smith", newlyAddedPet.getVetName());
 		
 	}
 	
@@ -130,8 +124,7 @@ public class AddEditPetUnitTest extends AbstractPetclinicSpringTest {
 		v3.setLastName("Oscar");
 		v3.setSpeciality("Canine");
 		List<Long> assignedPets3 = new ArrayList<Long>();
-		assignedPets3.add(new Random().nextLong());	
-		v3.setAssignedPets(assignedPets3);
+		assignedPets3.add(new Random().nextLong());
 		
 		Veterinarian v4 = new Veterinarian();
 		v4.setId(new Random().nextLong());
@@ -141,7 +134,6 @@ public class AddEditPetUnitTest extends AbstractPetclinicSpringTest {
 		List<Long> assignedPets4 = new ArrayList<Long>();
 		assignedPets4.add(new Random().nextLong());	
 		assignedPets4.add(new Random().nextLong());	
-		v4.setAssignedPets(assignedPets4);
 		
 		
 		mongo.insert(v3, CollectionNames.VET);
@@ -176,9 +168,5 @@ public class AddEditPetUnitTest extends AbstractPetclinicSpringTest {
 		assertNotNull(petViewParam.findParamByPath("/vpAddEditPet/vets").getLeafState());
 		Pet p2 = (Pet) petViewParam.findParamByPath("/.m").getState();
 		assertNotNull(p2);
-		assertNotNull(p2.getVetId());
-		assertEquals(v3.getId(), p2.getVetId());//assign pet to the least busy vet specialist 	
-		assertEquals(v3.getFullName(), p2.getVetName());
-		assertThat(v3.getAssignedPets().contains(p2.getId()));
 	}
 }

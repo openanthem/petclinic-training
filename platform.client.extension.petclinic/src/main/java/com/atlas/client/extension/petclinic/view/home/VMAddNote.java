@@ -29,9 +29,9 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Form;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextArea;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
+import com.atlas.client.extension.petclinic.core.home.Note;
+import com.atlas.client.extension.petclinic.core.home.CodeValueTypes.NoteTypes;
 import com.antheminc.oss.nimbus.domain.defn.extension.ParamContext;
-import com.atlas.client.extension.petclinic.core.CodeValueTypes.NoteTypes;
-import com.atlas.client.extension.petclinic.core.Note;
 
 import lombok.Getter;
 import lombok.Setter;

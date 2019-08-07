@@ -36,6 +36,6 @@ public class VLHome {
 		private VSHomeHeader vsHomeHeader;
 		
 		@MenuPanel
-		private VSHomeLeftBar vsHomeLeftBar;
+		private VSGlobalNav vsGlobalNav;
 	}
 }

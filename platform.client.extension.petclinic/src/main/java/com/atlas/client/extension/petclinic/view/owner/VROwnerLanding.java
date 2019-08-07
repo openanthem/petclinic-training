@@ -11,6 +11,7 @@ import com.antheminc.oss.nimbus.domain.defn.MapsTo;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo.Path;
 import com.antheminc.oss.nimbus.domain.defn.Model;
 import com.antheminc.oss.nimbus.domain.defn.Repo;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Autocomplete;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ButtonGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Form;
@@ -21,7 +22,7 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Tile;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ViewRoot;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
-import com.atlas.client.extension.petclinic.core.Owner;
+import com.atlas.client.extension.petclinic.core.owner.Owner;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +31,7 @@ import lombok.Setter;
 @Domain(value = "ownerlandingview", includeListeners = {ListenerType.websocket})
 @Repo(value = Repo.Database.rep_none, cache=Repo.Cache.rep_device)
 @Getter @Setter
-@ViewRoot(layout = "home")
+@ViewRoot(layout = "")
 public class VROwnerLanding {
  
 	@Label("Owners")
@@ -70,14 +71,15 @@ public class VROwnerLanding {
  
     	@Label("First Name")
     	@NotNull
-        @TextBox
+    	@Autocomplete(display="label")
+    	@Config(url = "/p/owner/_search?fn=lookup&where=owner.firstName.containsIgnoreCase('<!autocompletesearchvalue!>')&projection.mapsTo=code:id,label:firstName")
         @Path
         private String firstName;
-        
+           
         @Label("Last Name")
         @TextBox
         @Path
-        private String lastName;
+        private String lastName;       
         
         @ButtonGroup
         private VBGSearchOwner vbgSearchOwner;

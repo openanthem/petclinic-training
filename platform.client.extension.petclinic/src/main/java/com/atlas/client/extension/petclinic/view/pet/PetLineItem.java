@@ -10,7 +10,7 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.GridColumn;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Link;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.LinkMenu;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
-import com.atlas.client.extension.petclinic.core.Pet;
+import com.atlas.client.extension.petclinic.core.pet.Pet;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -51,14 +51,16 @@ public class PetLineItem {
     	
     	@Label("Edit Pet")
         @Link
-        @Config(url="/p/petview:<!/../id!>/_get")
-    	@Config(url="/p/petview:<!../id!>/_nav?pageId=vpAddEditPet")
+        @Config(url = "/p/petlayout:<!/../id!>/_get?b=$execute")
+        @Config(url = "/p/petview:<!/../id!>/_get")
+    	@Config(url = "/p/petview:<!../id!>/_nav?pageId=vpAddEditPet")
         private String editPet;
      
     	@Label("View Visits")
         @Link
-        @Config(url="/p/petview:<!/../id!>/_get")
-        @Config(url="/p/petview:<!../id!>/_nav?pageId=vpPetInfo")
+        @Config(url = "/p/petlayout:<!/../id!>/_get?b=$execute")
+        @Config(url = "/p/petview:<!/../id!>/_get")
+        @Config(url = "/p/petview:<!../id!>/_nav?pageId=vpPetInfo")
         private String viewVisits;
     	
     }

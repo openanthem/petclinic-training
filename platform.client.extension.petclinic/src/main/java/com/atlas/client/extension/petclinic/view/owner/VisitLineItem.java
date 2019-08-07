@@ -10,7 +10,7 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.GridColumn;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Link;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.LinkMenu;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
-import com.atlas.client.extension.petclinic.core.Visit;
+import com.atlas.client.extension.petclinic.core.owner.Visit;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -65,6 +65,11 @@ public class VisitLineItem {
         @Link(imgSrc="edit.png")
         @Config(url="/p/petassessmentview/_new")
         private String petQuestionnaire;
+    	
+    	@Label("Pet Care Questionnaire")
+        @Link(imgSrc="edit.png")
+        @Config(url="/p/petcareassessmentview/_new")
+        private String petCareQuestionnaire;
     }
 
 }
