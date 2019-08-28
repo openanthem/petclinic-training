@@ -1,16 +1,11 @@
 package com.atlas.client.extension.petclinic.view;
 
-import java.util.List;
-
 import com.antheminc.oss.nimbus.domain.defn.Domain;
 import com.antheminc.oss.nimbus.domain.defn.Domain.ListenerType;
 import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
-import com.antheminc.oss.nimbus.domain.defn.MapsTo;
 import com.antheminc.oss.nimbus.domain.defn.Model;
 import com.antheminc.oss.nimbus.domain.defn.Repo;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button.Style;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Grid;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Link;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Page;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Paragraph;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
@@ -19,9 +14,9 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Tile.Size;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ViewRoot;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
 import com.atlas.client.extension.petclinic.view.demos.VPChartDemo;
+import com.atlas.client.extension.petclinic.view.demos.VPSampleForms;
 import com.atlas.client.extension.petclinic.view.demos.VPTreegridDemo;
 import com.atlas.client.extension.petclinic.view.home.VPNotes;
-import com.atlas.client.extension.petclinic.view.owner.VisitLineItem;
 import com.atlas.client.extension.petclinic.view.pet.VPAllPets;
 
 import lombok.Getter;
@@ -76,10 +71,26 @@ public class VRDashboard {
     	@Paragraph(cssClass="font-weight-bold")
     	private String headerCallSection;
 		
+		@Label("Quick Links")
+		@Section
+		private VSQuickLinks vsQuickLinks;
+		
 		//@Section
 		//private VSMyVisits vsMyVisits;
 		
     }
+	
+	@Model
+	@Getter
+	@Setter
+	public static class VSQuickLinks {
+		
+		@Label("Sample Forms")
+		@Link
+		@Config(url = "/p/demos/_new")
+		@Config(url = "/p/demos/_nav?pageId=vpSampleForms")
+		private String sampleForms;
+	}
 	
 //	@Model
 //	@Getter @Setter
