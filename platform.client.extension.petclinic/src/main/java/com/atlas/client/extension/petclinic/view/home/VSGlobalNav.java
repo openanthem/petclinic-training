@@ -52,6 +52,10 @@ public class VSGlobalNav {
 	private String chartsdemo;
 	
 	
+	@Label("Inline Grid Edit Demo")
+	@MenuLink(url="petclinicdashboard/vpGridInlineEditDemo")
+	private String griddemo;
+	
 	@Model
 	@Getter
 	@Setter
