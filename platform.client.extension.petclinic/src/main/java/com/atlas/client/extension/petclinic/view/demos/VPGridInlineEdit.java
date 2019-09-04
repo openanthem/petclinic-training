@@ -15,43 +15,22 @@
  */
 package com.atlas.client.extension.petclinic.view.demos;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
-import com.antheminc.oss.nimbus.domain.defn.MapsTo;
-import com.antheminc.oss.nimbus.domain.defn.MapsTo.Nature;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo.Path;
 import com.antheminc.oss.nimbus.domain.defn.Model;
-import com.antheminc.oss.nimbus.domain.defn.Model.Param.Values;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button.Style;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button.Type;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ButtonGroup;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Calendar;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ComboBox;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Form;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Grid;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Modal;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Paragraph;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Tile;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TreeGrid;
-import com.antheminc.oss.nimbus.domain.defn.extension.ActivateConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
-import com.antheminc.oss.nimbus.domain.defn.extension.EnableConditional;
-import com.antheminc.oss.nimbus.domain.defn.extension.LabelConditional;
-import com.atlas.client.extension.petclinic.core.CodeValueTypes;
-import com.atlas.client.extension.petclinic.core.demos.PetHistory;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @author Tony Lopez
+ * @author Sandeep Mantha
  *
  */
 @Model

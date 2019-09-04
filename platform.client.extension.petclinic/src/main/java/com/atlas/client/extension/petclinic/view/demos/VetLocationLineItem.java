@@ -15,20 +15,15 @@
  */
 package com.atlas.client.extension.petclinic.view.demos;
 
-import java.time.LocalDate;
-import java.util.List;
+import javax.persistence.Transient;
 
+import com.antheminc.oss.nimbus.domain.defn.ConfigNature.Ignore;
+import com.antheminc.oss.nimbus.domain.defn.Domain.ListenerType;
 import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo.Path;
-import com.antheminc.oss.nimbus.domain.defn.Model;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.GridColumn;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Link;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.LinkMenu;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
-import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TreeGridChild;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
-import com.atlas.client.extension.petclinic.core.demos.PetHistory;
 import com.atlas.client.extension.petclinic.core.demos.VetLocation;
 
 import lombok.Getter;
@@ -36,7 +31,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author Tony Lopez
+ * @author Sandeep Mantha	
  *
  */
 @MapsTo.Type(VetLocation.class)
@@ -45,6 +40,8 @@ public class VetLocationLineItem {
 
 	@Config(url = "/p/vetlocation:<!/.m/id!>/_update")
 	@Config(url="<!#this!>/../../.m/_process?fn=_set&url=/p/vetlocation/_search?fn=query")
+	@Transient
+	@Ignore(listeners=ListenerType.websocket)
 	private String _action_onEdit;
 	
 	@Label("Name")
@@ -72,24 +69,24 @@ public class VetLocationLineItem {
 	@Path
 	private String country;
 	
-	@LinkMenu
-	private VLM vlm;
-	
-	@Model
-	@Getter @Setter
-	public static class VLM {
-		
-		@Label("View Details")
-		@Link
-		private String read;
-		
-		@Label("Edit Location")
-		@Link
-		private String update;
-		
-		@Label("Remove Location")
-		@Link
-		@Config(url = "<!#this!>/../../_delete")
-		private String delete;
-	}
+//	@LinkMenu
+//	private VLM vlm;
+//	
+//	@Model
+//	@Getter @Setter
+//	public static class VLM {
+//		
+//		@Label("View Details")
+//		@Link
+//		private String read;
+//		
+//		@Label("Edit Location")
+//		@Link
+//		private String update;
+//		
+//		@Label("Remove Location")
+//		@Link
+//		@Config(url = "<!#this!>/../../_delete")
+//		private String delete;
+//	}
 }
