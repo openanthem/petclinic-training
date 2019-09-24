@@ -141,6 +141,7 @@ domain:
   model:
     basePackages: 
       - com.antheminc.oss.nimbus.entity
+      - com.antheminc.oss.nimbus.entity.fileUpload
       - com.atlas.client.extension.petclinic.user
       - com.atlas.client.extension.petclinic.core
       - com.atlas.client.extension.petclinic.view
