@@ -26,6 +26,7 @@ import com.antheminc.oss.nimbus.domain.defn.Model;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ButtonGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FileUpload;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FileUpload.Type;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Form;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Grid;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Modal;
@@ -34,8 +35,8 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Tile;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
+import com.atlas.client.extension.petclinic.core.FileAttachment;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -87,17 +88,24 @@ public class VPNotes {
 		private List<NoteLineItem> notes;
 	}
 	@Model
-	@Getter @Setter
+	@Getter @Setter	
 	public static class VSFiles{
 		@Form
 		private VFFile vfFile;
 		
+	
 
 		@Label("Files")
-		@Grid(onLoad = true, pageSize = "20")
-		@Path(linked = false)
-		@Config(url = "<!#this!>/.m/_process?fn=_set&url=/p/fileattachment/_search?fn=example")
-		private List<FileLineItem> files;
+		@Grid(onLoad = true, pageSize = "20",isTransient=true)
+		@Path(linked=false)
+		private List<FileLineItem> gridFiles;
+		
+		private List<FileAttachment> uploadedFiles;
+		
+		@Button(style = Button.Style.SECONDARY, type = Button.Type.submit)
+		@Label(value = "Add All File Ids to Pet 7")
+		@Config(url = "/p/pet:7/files/_update?rawPayload=<!json(/../uploadedFiles)!>")
+		private String addFileIdsToPet;
 	}
 	@Model
 	@Getter @Setter
@@ -107,18 +115,22 @@ public class VPNotes {
 		@Label(value="Add Attachment")
 		private String formTitle;
 		
-		private long caseId;
 		
-		
-		List<String> ids;
-		
-		@FileUpload(url="/fileattachment/upload", metaData="memberId",
+		@FileUpload(url="/fileattachment/upload", targetParam="/../../uploadedFiles",urlType=Type.INTERNAL,
 		type= ".exe,.dot,.jpeg,.odt,.ini,.dotx,.docm,.onetoc2,.gif,.xlsb,.one,.docx,.bmp,.zip,.xml,.vbs,.csv,.mht,.xlsm,.PNG,.jpg,.htm,.url,.txt,.xls,.xps,.xlsx,.msg,.tiff,.docx,.rtf,.doc,.pdf,.TIF,"
 				+ ".EXE,.DOT,.JPEG,.ODT,.INI,.DOTX,.DOCM,.ONETOC2,.GIF,.XLSB,.ONE,.DOCX,.BMP,.ZIP,.XML,.VBS,.CSV,.MHT,.XLSM,.png,.JPG,.HTM,.URL,.TXT,.XLS,.XPS,.XLSX,.MSG,.TIFF,.DOCX,.RTF,.DOC,.PDF,.tif")
 		@NotNull
 		private String fileControl;
 		
-		private FileUploadContent fileContent;
+
+		@TextBox
+		@NotNull
+		@Label("Description")
+		private String description;
+		
+		@TextBox
+		@Label("Comments")
+		private String comments;
 		
 		@ButtonGroup(cssClass="oneColumn center")
 		private VBGSubmit submitBG;
@@ -132,9 +144,11 @@ public class VPNotes {
 	@Setter
 	public static class VBGSubmit{
 		@Configs({
-			@Config(url = "<!#this!>/../../fileContent/_update"),
-			@Config(url = "/vpNotes/vtNotes/vsFiles/files/.m/_process?fn=_set&url=/p/fileattachment/_search?fn=query"),
-			@Config(url = "<!#this!>/../../fileContent/_delete"),
+			@Config(url = "<!#this!>/../../_update"),
+//			@Config(url = "/vpNotes/vtNotes/vsFiles/fileIds/_update?rawPayload=<!/../../internalId!>"),
+			@Config(url = "/vpNotes/vtNotes/vsFiles/gridFiles/.m/_update?rawPayload=<!json(/../../../uploadedFiles)!>"),
+			@Config(url = "<!#this!>/../../_delete"),
+			
 		})
 		@Button(style = Button.Style.PRIMARY, type = Button.Type.submit)
 		@Label(value = "Add File")
@@ -143,19 +157,5 @@ public class VPNotes {
 	
 	}
 	
-	@Data @Model
-	public static class FileUploadContent extends UploadContent{
-
-		@TextBox
-		@NotNull
-		@Label("Description")
-		private String description;
-		
-		
 	
-		
-		@TextBox
-		@Label("Comments")
-		private String comments;
-	}
 }

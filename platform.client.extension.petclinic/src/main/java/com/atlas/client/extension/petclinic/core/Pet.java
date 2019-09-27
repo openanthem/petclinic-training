@@ -38,6 +38,8 @@ public class Pet extends AbstractEntity.IdLong {
 	private String[] category;
 	
 	private String notes;
+	
+	private List<FileAttachment> files;
 
 	private List<MealInstruction> mealInstructions;
 

@@ -56,17 +56,7 @@ public class FileLineItem {
 	public static class VLMDefault {
 		
 		@Label("View File")
-//		@Link
-////		@Config(url = "/vpNotes/vtNotes/vmNotes/vsMain/vfAddNote/checker/_process?fn=_set&value=HIDE")
-////		
-////		@Config(url = "/vpNotes/vtNotes/vmNotes/vsMain/vfViewNote/noteType/_process?fn=_set&value=general")
-////		@Config(url = "/vpNotes/vtNotes/vmNotes/vsMain/vfViewNote/_replace?rawPayload=<!json(/../../.m)!>")
-////		@Config(url = "/vpNotes/vtNotes/vmNotes/_process?fn=_setByRule&rule=togglemodal")
-//		private String view;
-		
 		@Link(value= Link.Type.DOWNLOAD, target="_blank", url="/fileattachment/download?id={id}")
-//		@Link
-//		@Config(url = "p/fileUpload/download?fileName=<!/../../.m/fileName!>")
 		@MapsTo.Path(linked = false)
 		private String view;
 		

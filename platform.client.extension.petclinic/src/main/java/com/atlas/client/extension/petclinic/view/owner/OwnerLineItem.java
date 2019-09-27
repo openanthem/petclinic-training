@@ -77,17 +77,7 @@ public class OwnerLineItem {
     @GridRowBody
     private ExpandedRowContent expandedRowContent;
     
-//    @Button(imgSrc = "fa-edit", title = "Edit")
-//	@Label(" ")
-//	@Config(url = "/p/ownerview:<!/.m/id!>/_get")
-//	private String edit;
-//	
-//    
-//    @Button(imgSrc = "fa-tasks", title = "Owner Info")
-//	@Label(" ")
-//	@Config(url = "/p/ownerview:<!/.m/id!>/_get")
-//    @Config(url = "/p/ownerview:<!/.m/id!>/_nav?pageId=vpOwnerInfo")
-//    private String ownerInfo;
+
     
     @Model @Getter @Setter
     public static class ExpandedRowContent {
