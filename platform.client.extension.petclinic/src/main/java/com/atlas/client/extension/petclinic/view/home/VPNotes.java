@@ -100,7 +100,7 @@ public class VPNotes {
 		@Path(linked=false)
 		private List<FileLineItem> gridFiles;
 		
-		private List<FileAttachment> uploadedFiles;
+		private FileAttachment uploadedFiles;
 		
 		@Button(style = Button.Style.SECONDARY, type = Button.Type.submit)
 		@Label(value = "Add All File Ids to Pet 7")
