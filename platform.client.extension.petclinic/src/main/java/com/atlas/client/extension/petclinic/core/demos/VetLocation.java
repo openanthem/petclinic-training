@@ -28,7 +28,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * @author Tony Lopez
+ * @author Sandeep Mantha
  *
  */
 @Domain(value="vetlocation", includeListeners = { ListenerType.persistence, ListenerType.update })
