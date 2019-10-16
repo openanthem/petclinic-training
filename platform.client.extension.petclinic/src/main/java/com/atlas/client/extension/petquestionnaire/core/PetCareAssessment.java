@@ -17,6 +17,7 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.AccordionTab;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ButtonGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Calendar;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.CheckBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.CheckBoxGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ComboBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FormElementGroup;
@@ -62,7 +63,7 @@ public class PetCareAssessment extends IdLong {
 		@Accordion(showExpandAll=true, showMessages=true)
 		private PetCareAssessmentQuestionnaire petCareAssessmentQuestionnaire;
 				
-		@ButtonGroup
+		@ButtonGroup()
 		private  FormButtonGroup buttonGroup;
 	}
 	
@@ -93,6 +94,17 @@ public class PetCareAssessment extends IdLong {
 		@Label(value = "Question 1")
 		private String question1;
 
+		@TextBox(postEventOnChange=true)
+		@ActivateConditional(when = "state == 'Yes'", targetPath = {
+	    		"/../ques_check"
+	    	})
+		@Label(value = "Question 1a")
+		private String question1a;
+		
+		@CheckBox(postEventOnChange=true)
+		@Label(value = "Question 1")
+		private Boolean ques_check;
+		
 		@Calendar(timeOnly=true)
 		@NotNull
 		@Label(value = "Calendar with time only")
