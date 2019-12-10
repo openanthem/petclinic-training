@@ -25,17 +25,23 @@ import com.antheminc.oss.nimbus.domain.defn.MapsTo.Path;
 import com.antheminc.oss.nimbus.domain.defn.Model;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Button;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ButtonGroup;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.ComboBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FileUpload;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FileUpload.Type;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Form;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.FormElementGroup;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Grid;
+import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Link;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Modal;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Paragraph;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TextBox;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Tile;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
+import com.antheminc.oss.nimbus.domain.defn.extension.ActivateConditional;
+import com.antheminc.oss.nimbus.domain.defn.extension.VisibleConditional;
 import com.atlas.client.extension.petclinic.core.FileAttachment;
+import com.atlas.client.extension.petquestionnaire.core.CodeValueTypes.YesTest;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -67,11 +73,30 @@ public class VPNotes {
 		
 		@Section
 		private VSFiles vsFiles;
+		
+		@Section
+		private VSSampleVisibilityTest vsSampleVisibilityTest;
+		
+		
+		
+		
 	}
+	
 	
 	@Model
 	@Getter @Setter
 	public static class VSNotes {
+		
+		@Label("Pet Care Questionnaire")
+		@Button(imgSrc = "fa-plus-circle")
+        @Config(url="/p/petcareassessmentview/_new")
+        private String petCareQuestionnaire;
+		
+		
+		@Button(imgSrc = "fa-plus-circle")
+		@Label(value = "Hide File Section")
+		@Config(url = "/vpNotes/vtNotes/vsFiles/_process?fn=_setByRule&rule=hidefilesection")
+		private String hideFilesSection;
 		
 		@Label(value = "Add a Note")
 		@Button(imgSrc = "fa-plus-circle")
@@ -128,8 +153,10 @@ public class VPNotes {
 		@Label("Description")
 		private String description;
 		
-		@TextBox
+		@TextBox(postEventOnChange=true)
 		@Label("Comments")
+		@VisibleConditional(when="state != null && state !=''", targetPath="../submitBG")
+		
 		private String comments;
 		
 		@ButtonGroup(cssClass="oneColumn center")
@@ -153,6 +180,8 @@ public class VPNotes {
 		@Button(style = Button.Style.PRIMARY, type = Button.Type.submit)
 		@Label(value = "Add File")
 		private String upload;
+		
+	
 
 	
 	}

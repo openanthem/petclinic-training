@@ -1,0 +1,19 @@
+package com.atlas.client.extension.petclinic.view;
+
+import com.antheminc.oss.nimbus.domain.model.state.EntityState.Param;
+
+rule "show modal"
+
+    when
+        $param: Param(!$param.isVisible())
+    then
+        $param.setVisible(true);
+end
+
+rule "hide modal"
+
+    when
+        $param: Param($param.isVisible())
+    then
+        $param.setVisible(false);
+end
