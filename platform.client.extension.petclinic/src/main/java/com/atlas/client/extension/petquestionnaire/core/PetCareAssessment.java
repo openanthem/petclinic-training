@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import com.antheminc.oss.nimbus.domain.defn.Domain;
 import com.antheminc.oss.nimbus.domain.defn.Domain.ListenerType;
+import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
 import com.antheminc.oss.nimbus.domain.defn.Model;
 import com.antheminc.oss.nimbus.domain.defn.Repo;
 import com.antheminc.oss.nimbus.domain.defn.Repo.Cache;
@@ -60,12 +61,28 @@ public class PetCareAssessment extends IdLong {
 	@Getter @Setter
 	public static class PetCareForm {
 		
+		
+		@ActivateConditional(when = "state == 'Good'", targetPath = {
+	    		"/../dummyQuestionnaireSegment"
+	    	})
+		@ComboBox(cssClass= "questionGroup form-inline", postEventOnChange= true)
+		@NotNull
+		@Model.Param.Values(value = SatisfactionType.class)
+		@Label(value = "Question Main - Good activates dummyQuestionnaireSegment")
+		private String masterQuestion;
+		
+		private DummyQuestionnaireSegment dummyQuestionnaireSegment;
+		
 		@Accordion(showExpandAll=true, showMessages=true)
 		private PetCareAssessmentQuestionnaire petCareAssessmentQuestionnaire;
+		
+		
 				
 		@ButtonGroup()
 		private  FormButtonGroup buttonGroup;
 	}
+	
+
 	
 	@Model
 	@Getter @Setter
@@ -75,6 +92,8 @@ public class PetCareAssessment extends IdLong {
 		@Label("Section 1")
 		private Quetionnaire_Section1 quetionnaire_Section1;
 		
+		
+		
 		@AccordionTab
 		@Label("Section 2")
 		private Quetionnaire_Section2 quetionnaire_Section2;
@@ -82,6 +101,8 @@ public class PetCareAssessment extends IdLong {
 		@AccordionTab
 		@Label("Section 3")
 		private Quetionnaire_Section3 quetionnaire_Section3;
+		
+		
 				
 	}
 	
@@ -139,7 +160,7 @@ public class PetCareAssessment extends IdLong {
 		@Size(min=2)
 		@NotNull
 		@Model.Param.Values(value = SatisfactionType.class)
-		@Label(value = "Question 22")
+		@Label(value = "Question 22 - Good activates dummyQuestionnaireSegment")
 		private String question22;
 		
 		@TextBox
@@ -153,10 +174,13 @@ public class PetCareAssessment extends IdLong {
 		@Pattern(regexp = "^[2-9]\\d{2}-\\d{3}-\\d{4}$", message = "Please enter phone number in xxx-xxx-xxxx format")
 		@Label(value = "Question 24 with regex pattern and mandatory")
 		private String question24;
+	
 		
 		@FormElementGroup
 		@Label("Section 12")
 		private Section12 section12;
+		
+
 	}
 	
 	@Model
@@ -201,6 +225,20 @@ public class PetCareAssessment extends IdLong {
 		@Label(value = "Question 18")
 		private String question18;
 		
+	}
+	
+	@Model
+	@Getter @Setter
+	public static class DummyQuestionnaireSegment{
+		@ComboBox()
+		@Model.Param.Values(value = YesTest.class)
+		@Label(value = "Question 26")
+		private String question26;
+		
+		@TextBox
+		@NotNull
+		@Label(value = "Question 27")
+		private String question27;
 	}
 	
 	@Model
@@ -278,6 +316,18 @@ public class PetCareAssessment extends IdLong {
 		@Button(style = Button.Style.SECONDARY, cssClass = "btn btn-primary mb-1", type = Button.Type.submit, formReset = true)
 		@Label("Clear")
 		private String Clear;
+		
+		@Button(style = Button.Style.SECONDARY, cssClass = "btn btn-primary mb-1", type = Button.Type.button)
+		@Label(value = "Hide  Section 1")
+		@Config(url = "<!#this!>/../../petCareAssessmentQuestionnaire/quetionnaire_Section1/_process?fn=_setByRule&rule=hidefilesection")
+		private String hideFilesSection;
+		
+		@Button(style = Button.Style.SECONDARY, cssClass = "btn btn-primary mb-1", type = Button.Type.button)
+		@Label(value = "Hide  DummyQuestionnaire in Section 1")
+		@Config(url = "<!#this!>/../../dummyQuestionnaireSegment/_process?fn=_setByRule&rule=hidefilesection")
+		private String hideDummyQuestionnaireSection;
+		
+		
 			
 	
 	}

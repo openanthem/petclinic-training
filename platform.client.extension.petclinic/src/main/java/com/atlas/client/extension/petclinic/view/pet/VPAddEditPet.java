@@ -18,8 +18,8 @@ package com.atlas.client.extension.petclinic.view.pet;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.antheminc.oss.nimbus.domain.defn.Execution.Config;
 import com.antheminc.oss.nimbus.domain.defn.MapsTo;
@@ -136,7 +136,7 @@ public class VPAddEditPet {
 		private PicklistType category; 
 		
 		@TextArea
-		@Max(value=500)
+		@Size(max=500)
 		private String notes;
 		
 		@Label("Add Meal Instruction")

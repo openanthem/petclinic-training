@@ -26,6 +26,7 @@ import com.antheminc.oss.nimbus.domain.defn.ViewConfig.PageHeader.Property;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.Section.Type;
 import com.antheminc.oss.nimbus.domain.defn.ViewConfig.TabInfo;
+import com.antheminc.oss.nimbus.domain.defn.extension.ConfigConditional;
 import com.antheminc.oss.nimbus.domain.defn.extension.Content.Label;
 import com.atlas.client.extension.petclinic.core.Owner;
 import com.atlas.client.extension.petclinic.core.Pet;
@@ -47,7 +48,7 @@ public class VLPet {
 		
 		@Section(Type.HEADER)
 		@Initialize
-		@Config(url = "/vp/vsHeader/vaBanner/vatBannerTab/vcdPetDetails/vcdbPetDetails/vfvgOwnerContact/.m/_process?fn=_set&url=/p/owner:<!/.m/ownerId!>/_get?b=$state")
+		@ConfigConditional( when="findStateByPath('/../../.m/ownerId')!=null",config = { @Config (url = "/vp/vsHeader/vaBanner/vatBannerTab/vcdPetDetails/vcdbPetDetails/vfvgOwnerContact/.m/_process?fn=_set&url=/p/owner:<!/../../.m/ownerId!>/_get?b=$state")})
 		private VSHeader vsHeader;
 		
 		@MenuPanel
